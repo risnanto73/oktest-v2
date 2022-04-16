@@ -19,13 +19,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".ui.home.fragment.note.AdminActivity"
+            android:name=".ui.home.fragment.wisata.coban_rais_malang.DetailRaisMalangActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragment.note.DataActivity"
+            android:name=".ui.home.fragment.wisata.coban_rais_malang.DataRaisMalangActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.fragment.note.DetailsActivity"
+            android:name=".ui.home.fragment.wisata.pantai_malang.AdminPantaiMalangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.fragment.wisata.coban_rais_malang.AdminRaisMalangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.fragment.wisata.BaseWisataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.fragment.wisata.coban_putri_malang.AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.fragment.wisata.coban_putri_malang.DataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.fragment.wisata.coban_putri_malang.DetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.fragment.dashboard.DetailDashboardActivity"

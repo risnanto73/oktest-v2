@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.fragment.wisata.coban_putri_malang.AdminActivity">
+    tools:context=".ui.home.fragment.wisata.coban_rais_malang.AdminRaisMalangActivity">
 
     <LinearLayout
         android:id="@+id/layoutCardTotal"
@@ -82,20 +82,10 @@
                         style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="10dp"
-                        android:layout_toLeftOf="@id/orangHariIni"
                         android:textSize="30dp" />
-
-                    <TextView
-                        android:id="@+id/orangHariIni"
-                        style="@style/TextAppearance.AppCompat.Subhead.Inverse"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_margin="10dp"
-                        android:text="Orang" />
 
                 </RelativeLayout>
 
@@ -192,15 +182,15 @@
 
     </LinearLayout>
 
-
     <Button
-        android:id="@+id/btn_add_note"
+        android:id="@+id/btnGoToAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="15dp"
-        android:text="Go to Data"
+        android:layout_marginBottom="15dp"
+        android:text="Go To Data"
         android:textAllCaps="false" />
 
 </RelativeLayout>

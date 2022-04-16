@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.fragment.wisata.coban_putri_malang.DataActivity">
+    tools:context=".ui.home.fragment.wisata.coban_rais_malang.DataRaisMalangActivity">
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         style="@style/Widget.MaterialComponents.FloatingActionButton"
@@ -20,8 +20,8 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="50dp"
         android:onClick="fabClicked"
+        app:backgroundTint="#E91E63"
         app:srcCompat="@android:drawable/ic_input_add"
-        app:tint="#FFFFFF"
-        app:backgroundTint="#E91E63"/>
+        app:tint="#FFFFFF" />
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.tiorisnanto.myapplication.ui.home.fragment.note
+package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -32,9 +32,6 @@ class CustomAdapter(
         var dataitem = dataList[position]
 
         val rowView = inflater.inflate(R.layout.list_row, parent, false)
-//        rowView.findViewById<TextView>(R.id.row_name).text = dataitem["name"]
-//        rowView.findViewById<TextView>(R.id.row_age).text = "Age: " + dataitem["age"]
-//        rowView.findViewById<TextView>(R.id.row_email).text = "Email: " + dataitem["email"]
         rowView.findViewById<TextView>(R.id.row_date).text = "Date: " + dataitem["date"]
         rowView.findViewById<TextView>(R.id.row_hour).text = " at " + dataitem["hour"]
 

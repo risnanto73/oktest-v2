@@ -1,4 +1,4 @@
-package com.tiorisnanto.myapplication.ui.home.fragment.note
+package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.content.ContentValues
 import android.content.Context
@@ -40,9 +40,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         childPrice: String
     ) {
         val values = ContentValues()
-//        values.put(COLUMN_NAME, name)
-//        values.put(COLUMN_AGE, age)
-//        values.put(COLUMN_EMAIL, email)
         values.put(COLUMN_DATE, date)
         values.put(COLUMN_HOUR, hour)
         values.put(COLUMN_IMAGE, image)
@@ -62,9 +59,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     fun updateRow(
         row_id: String,
-//        name: String,
-//        age: String,
-//        email: String,
         date: String,
         hour: String,
         image: ByteArray,
@@ -110,7 +104,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_ID DESC", null)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPendapatan(): String {
         val date = DateTimeFormatter
             .ofPattern("yyyy.MM.dd")
@@ -129,12 +123,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPengunjung(): String {
         val date = DateTimeFormatter
             .ofPattern("yyyy.MM.dd")
             .withZone(ZoneOffset.UTC)
             .format(Instant.now())
+
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
@@ -183,37 +178,15 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun totalPengunjung1(): String {
-
-//        val date = "2022.04.16"
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.UTC)
-            .format(Instant.now())
-
-        val db = this.readableDatabase
-        val cursor: Cursor? =
-            db.rawQuery(
-                "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE = '$date' ",
-                null
-            )
-        cursor?.moveToFirst()
-        val total = cursor?.getInt(0)
-        cursor?.close()
-        return total.toString()
-    }
+//
 
     companion object {
         const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "myDBfile.db"
-        const val TABLE_NAME = "users"
+        const val DATABASE_NAME = "CobanPutriMalang.db"
+        const val TABLE_NAME = "CobanPutriMalang"
 
         const val COLUMN_ID = "id"
 
-        //        const val COLUMN_NAME = "name"
-//        const val COLUMN_AGE = "age"
-//        const val COLUMN_EMAIL = "email"
         const val COLUMN_DATE = "date"
         const val COLUMN_HOUR = "hour"
         const val COLUMN_IMAGE = "image"

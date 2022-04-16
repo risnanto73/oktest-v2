@@ -19,9 +19,7 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.squareup.picasso.Picasso
 import com.tiorisnanto.myapplication.R
 import com.tiorisnanto.myapplication.databinding.FragmentDashboardBinding
-import com.tiorisnanto.myapplication.ui.home.fragment.dashboard.DetailDashboardActivity
-import com.tiorisnanto.myapplication.ui.home.fragment.note.AdminActivity
-import com.tiorisnanto.myapplication.ui.home.fragment.note.DataActivity
+import com.tiorisnanto.myapplication.ui.home.fragment.wisata.BaseWisataActivity
 import java.io.ByteArrayOutputStream
 
 
@@ -54,7 +52,7 @@ class DashboardFragment : Fragment() {
         showProfile()
 
         binding!!.btnData.setOnClickListener {
-            startActivity(Intent(requireContext(), AdminActivity::class.java))
+            startActivity(Intent(requireContext(), BaseWisataActivity::class.java))
         }
 
         binding!!.btnGenerate.setOnClickListener {

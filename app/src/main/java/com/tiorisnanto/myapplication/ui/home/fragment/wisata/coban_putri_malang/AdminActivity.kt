@@ -1,18 +1,14 @@
-package com.tiorisnanto.myapplication.ui.home.fragment.note
+package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tiorisnanto.myapplication.databinding.ActivityAdminBinding
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class AdminActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAdminBinding
     val dbHandler = DBHelper(this, null)
-    var dataList = ArrayList<HashMap<String, String>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

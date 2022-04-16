@@ -1,4 +1,4 @@
-package com.tiorisnanto.myapplication.ui.home.fragment.note
+package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -140,15 +140,15 @@ class DetailsActivity : AppCompatActivity() {
             txtTime.visibility = View.GONE
         }
 
-        imgCoder.setOnClickListener {
-            val date = txtTime.text.toString()
-            val hour = txtHour.text.toString()
-            Toast.makeText(
-                this,
-                "Tiket Valid pada Tanggal " + "${date} ${hour} dan anda pengunjungan ke ${modifyId}",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+//        imgCoder.setOnClickListener {
+//            val date = txtTime.text.toString()
+//            val hour = txtHour.text.toString()
+//            Toast.makeText(
+//                this,
+//                "Tiket Valid pada Tanggal " + "${date} ${hour} dan anda pengunjungan ke ${modifyId}",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
 
     }
 

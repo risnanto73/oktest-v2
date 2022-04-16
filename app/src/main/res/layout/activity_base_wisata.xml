@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.fragment.wisata.BaseWisataActivity">
+
+    <com.hadisyah.verticaliconbutton.VerticalIconBoxedButton
+        android:id="@+id/btnCobanPutriMalang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:button_background_color_normal="@color/profile"
+        app:button_text="Coban Putri Malang"
+        app:button_text_size="10sp"
+        app:cardCornerRadius="2dp"
+        app:icon="@drawable/ic_home"
+        app:stroke_color="@color/colorAccent" />
+
+    <com.hadisyah.verticaliconbutton.VerticalIconBoxedButton
+        android:id="@+id/btnCobanRaisMalang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:button_background_color_normal="@color/colorAccent"
+        app:button_text="Coban Rais Malang"
+        app:button_text_size="10sp"
+        app:cardCornerRadius="2dp"
+        app:icon="@drawable/ic_baseline_favorite_24"
+        app:stroke_color="@color/colorAccent" />
+
+    <com.hadisyah.verticaliconbutton.VerticalIconBoxedButton
+        android:id="@+id/btnPantaiMalang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:button_text="Pantai Malang"
+        app:button_text_size="10sp"
+        app:cardCornerRadius="2dp"
+        app:icon="@drawable/ic_baseline_home_24"
+        app:stroke_color="@color/colorAccent" />
+
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.tiorisnanto.myapplication.ui.home.fragment.note
+package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.content.Intent
 import android.os.Bundle
@@ -60,9 +60,6 @@ class DataActivity : AppCompatActivity() {
         findViewById<ListView>(R.id.listView).setOnItemClickListener { _, _, i, _ ->
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra("id", dataList[+i]["id"])
-//            intent.putExtra("name", dataList[+i]["name"])
-//            intent.putExtra("age", dataList[+i]["age"])
-//            intent.putExtra("email", dataList[+i]["email"])
             intent.putExtra("time", dataList[+i]["date"])
             intent.putExtra("hours", dataList[+i]["hour"])
             intent.putExtra("hour", dataList[+i]["hour"])
