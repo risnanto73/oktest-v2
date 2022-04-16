@@ -4,9 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tiorisnanto.myapplication.databinding.ActivityAdminBinding
-import kotlinx.android.synthetic.main.activity_details.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -42,7 +39,7 @@ class AdminActivity : AppCompatActivity() {
 
         binding.tvTotalPengunjungDewasaHariIni.text = dbHandler.totalPengunjungDewasa() + " Orang"
 
-        binding.tvTotalPendapatan.text = "Rp. " + dbHandler.totalPendapatan1(dateFormat = Date())
+        binding.tvTotalPendapatan.text = dbHandler.totalPengunjung1()
     }
 
 

@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+<!--        <Button-->
+<!--            android:id="@+id/btnDelete"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="5dp"-->
+<!--            android:maxLines="1"-->
+<!--            android:onClick="delete"-->
+<!--            android:text="Delete" />-->
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgQrCode"

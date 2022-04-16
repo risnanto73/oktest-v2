@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.text.SimpleDateFormat
+import java.time.chrono.ChronoLocalDateTime
 import java.util.*
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
@@ -23,7 +24,18 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         onCreate(db)
     }
 
-    fun insertRow(date: String, image: ByteArray, count: String, price: String, adult: String, child: String, countAdult: String, countChild: String, adultPrice: String, childPrice: String) {
+    fun insertRow(
+        date: String,
+        image: ByteArray,
+        count: String,
+        price: String,
+        adult: String,
+        child: String,
+        countAdult: String,
+        countChild: String,
+        adultPrice: String,
+        childPrice: String
+    ) {
         val values = ContentValues()
 //        values.put(COLUMN_NAME, name)
 //        values.put(COLUMN_AGE, age)
@@ -93,10 +105,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
 
-
     fun totalPendapatan(): String {
         val db = this.readableDatabase
-        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        val cursor: Cursor? =
+            db.rawQuery("SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
@@ -104,9 +116,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
 
-    fun totalPengunjung(): String? {
+    fun totalPengunjung(): String {
         val db = this.readableDatabase
-        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        val cursor: Cursor? =
+            db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
@@ -115,31 +128,34 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     fun totalPengunjungAnak(): String {
         val db = this.readableDatabase
-        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_COUNT_CHILD) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        val cursor: Cursor? =
+            db.rawQuery("SELECT SUM($COLUMN_COUNT_CHILD) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
         return total.toString()
     }
 
-    fun totalPengunjungDewasa(): String? {
+    fun totalPengunjungDewasa(): String {
         val db = this.readableDatabase
-        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_COUNT_ADULT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        val cursor: Cursor? =
+            db.rawQuery("SELECT SUM($COLUMN_COUNT_ADULT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
         return total.toString()
     }
 
-    fun totalPendapatan1(dateFormat: Date): Any? {
+
+    fun totalPengunjung1(): String {
         val db = this.readableDatabase
-        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE = '$dateFormat'", null)
+        val cursor: Cursor? =
+            db.rawQuery("SELECT STRFTIME($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
         return total.toString()
     }
-
 
     companion object {
         const val DATABASE_VERSION = 1
@@ -147,7 +163,8 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         const val TABLE_NAME = "users"
 
         const val COLUMN_ID = "id"
-//        const val COLUMN_NAME = "name"
+
+        //        const val COLUMN_NAME = "name"
 //        const val COLUMN_AGE = "age"
 //        const val COLUMN_EMAIL = "email"
         const val COLUMN_DATE = "date"
