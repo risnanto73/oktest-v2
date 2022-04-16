@@ -1,20 +1,12 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.note
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.qrcode.QRCodeWriter
 import com.tiorisnanto.myapplication.R
-import java.io.ByteArrayOutputStream
 
 class CustomAdapter(
     private val context: Context,
@@ -44,6 +36,7 @@ class CustomAdapter(
 //        rowView.findViewById<TextView>(R.id.row_age).text = "Age: " + dataitem["age"]
 //        rowView.findViewById<TextView>(R.id.row_email).text = "Email: " + dataitem["email"]
         rowView.findViewById<TextView>(R.id.row_date).text = "Date: " + dataitem["date"]
+        rowView.findViewById<TextView>(R.id.row_hour).text = " at " + dataitem["hour"]
 
 
         rowView.tag = position
