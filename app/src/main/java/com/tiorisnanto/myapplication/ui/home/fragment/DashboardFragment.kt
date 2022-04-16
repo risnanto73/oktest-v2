@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso
 import com.tiorisnanto.myapplication.R
 import com.tiorisnanto.myapplication.databinding.FragmentDashboardBinding
 import com.tiorisnanto.myapplication.ui.home.fragment.dashboard.DetailDashboardActivity
+import com.tiorisnanto.myapplication.ui.home.fragment.note.AdminActivity
 import com.tiorisnanto.myapplication.ui.home.fragment.note.DataActivity
 import java.io.ByteArrayOutputStream
 
@@ -53,7 +54,7 @@ class DashboardFragment : Fragment() {
         showProfile()
 
         binding!!.btnData.setOnClickListener {
-            startActivity(Intent(requireContext(), DataActivity::class.java))
+            startActivity(Intent(requireContext(), AdminActivity::class.java))
         }
 
         binding!!.btnGenerate.setOnClickListener {

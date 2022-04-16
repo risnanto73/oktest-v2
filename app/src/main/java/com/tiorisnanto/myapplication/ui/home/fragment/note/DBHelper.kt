@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -86,8 +88,58 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     fun getAllRow(): Cursor? {
         val db = this.readableDatabase
-        return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
+        //return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
+        return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_ID DESC", null)
     }
+
+
+
+    fun totalPendapatan(): String {
+        val db = this.readableDatabase
+        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
+
+    fun totalPengunjung(): String? {
+        val db = this.readableDatabase
+        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
+    fun totalPengunjungAnak(): String {
+        val db = this.readableDatabase
+        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_COUNT_CHILD) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
+    fun totalPengunjungDewasa(): String? {
+        val db = this.readableDatabase
+        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_COUNT_ADULT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
+    fun totalPendapatan1(dateFormat: Date): Any? {
+        val db = this.readableDatabase
+        val cursor: Cursor? = db.rawQuery("SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE = '$dateFormat'", null)
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
 
     companion object {
         const val DATABASE_VERSION = 1

@@ -2,7 +2,9 @@ package com.tiorisnanto.myapplication.ui.home.fragment.note
 
 import android.annotation.SuppressLint
 import android.graphics.*
+import android.graphics.pdf.PdfDocument
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,8 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.tiorisnanto.myapplication.R
 import kotlinx.android.synthetic.main.activity_details.*
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.text.NumberFormat
 import java.util.*
 
@@ -82,6 +86,7 @@ class DetailsActivity : AppCompatActivity() {
             textHargaAnak.setText(intent.getStringExtra("child_price"))
 
             btnPrintPDF.setOnClickListener {
+
                 val text = "Tiket Valid pada Tanggal "
                 val time = txtTime.text.toString()
                 val text2 = "dan anda pengunjungan ke"
@@ -91,28 +96,34 @@ class DetailsActivity : AppCompatActivity() {
                 val combine = text + time + text2 + idPengunjung
                 val qrCodeWriter = QRCodeWriter()
                 try {
-                    val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+                    val bitMatrix =
+                        qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
                     val width = bitMatrix.width
                     val height = bitMatrix.height
                     val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
 
                     for (x in 0 until width) {
                         for (y in 0 until height) {
-                            bmp.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
+                            bmp.setPixel(
+                                x,
+                                y,
+                                if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE
+                            )
                         }
                     }
 
                     val stream = ByteArrayOutputStream()
                     bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
                     val byteArray = stream.toByteArray()
-                    val imgOk : ImageView = findViewById(R.id.imgQrCode)
+                    val imgOk: ImageView = findViewById(R.id.imgQrCode)
                     imgOk.setImageBitmap(bmp)
 
                     doPhotoPrint(byteArray)
-                }
-                catch (e: WriterException) {
+                } catch (e: WriterException) {
                     e.printStackTrace()
                 }
+
+
             }
 
             findViewById<Button>(R.id.btnAdd).visibility = View.GONE

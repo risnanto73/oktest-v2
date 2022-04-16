@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".ui.home.fragment.note.AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.fragment.note.DataActivity"
             android:exported="false" />
         <activity
