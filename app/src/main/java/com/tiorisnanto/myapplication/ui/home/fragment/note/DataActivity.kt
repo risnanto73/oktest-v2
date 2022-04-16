@@ -37,6 +37,7 @@ class DataActivity : AppCompatActivity() {
             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
 
             map["date"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DATE))
+            map["hour"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_HOUR))
             map["count"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_COUNT))
             map["price"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_PRICE))
             map["adult"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ADULT))
@@ -59,6 +60,7 @@ class DataActivity : AppCompatActivity() {
 //            intent.putExtra("age", dataList[+i]["age"])
 //            intent.putExtra("email", dataList[+i]["email"])
             intent.putExtra("time", dataList[+i]["date"])
+            intent.putExtra("hour", dataList[+i]["hour"])
             intent.putExtra("count", dataList[+i]["count"])
             intent.putExtra("price", dataList[+i]["price"])
             intent.putExtra("adult", dataList[+i]["adult"])

@@ -5,9 +5,11 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import java.text.SimpleDateFormat
-import java.time.chrono.ChronoLocalDateTime
-import java.util.*
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -15,7 +17,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
             "CREATE TABLE $TABLE_NAME " +
-                    "($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_DATE TEXT,$COLUMN_IMAGE BYTEARRAY, $COLUMN_COUNT TEXT, $COLUMN_PRICE TEXT, $COLUMN_ADULT TEXT, $COLUMN_CHILD TEXT, $COLUMN_COUNT_ADULT TEXT, $COLUMN_COUNT_CHILD TEXT, $COLUMN_ADULT_PRICE TEXT, $COLUMN_CHILD_PRICE TEXT)"
+                    "($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_DATE TEXT,$COLUMN_HOUR TEXT,$COLUMN_IMAGE BYTEARRAY, $COLUMN_COUNT TEXT, $COLUMN_PRICE TEXT, $COLUMN_ADULT TEXT, $COLUMN_CHILD TEXT, $COLUMN_COUNT_ADULT TEXT, $COLUMN_COUNT_CHILD TEXT, $COLUMN_ADULT_PRICE TEXT, $COLUMN_CHILD_PRICE TEXT)"
         )
     }
 
@@ -26,6 +28,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     fun insertRow(
         date: String,
+        hour: String,
         image: ByteArray,
         count: String,
         price: String,
@@ -41,6 +44,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 //        values.put(COLUMN_AGE, age)
 //        values.put(COLUMN_EMAIL, email)
         values.put(COLUMN_DATE, date)
+        values.put(COLUMN_HOUR, hour)
         values.put(COLUMN_IMAGE, image)
         values.put(COLUMN_COUNT, count)
         values.put(COLUMN_PRICE, price)
@@ -62,6 +66,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 //        age: String,
 //        email: String,
         date: String,
+        hour: String,
         image: ByteArray,
         count: String,
         price: String,
@@ -77,6 +82,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 //        values.put(COLUMN_AGE, age)
 //        values.put(COLUMN_EMAIL, email)
         values.put(COLUMN_DATE, date)
+        values.put(COLUMN_HOUR, hour)
         values.put(COLUMN_IMAGE, image)
         values.put(COLUMN_COUNT, count)
         values.put(COLUMN_PRICE, price)
@@ -114,46 +120,77 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPengunjung(): String {
+        val date = DateTimeFormatter
+            .ofPattern("yyyy.MM.dd")
+            .withZone(ZoneOffset.UTC)
+            .format(Instant.now())
         val db = this.readableDatabase
         val cursor: Cursor? =
-            db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+            db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE= '$date'", null)
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
         return total.toString()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPengunjungAnak(): String {
+        val date = DateTimeFormatter
+            .ofPattern("yyyy.MM.dd")
+            .withZone(ZoneOffset.UTC)
+            .format(Instant.now())
         val db = this.readableDatabase
         val cursor: Cursor? =
-            db.rawQuery("SELECT SUM($COLUMN_COUNT_CHILD) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+            db.rawQuery(
+                "SELECT SUM($COLUMN_COUNT_CHILD) FROM $TABLE_NAME WHERE $COLUMN_DATE='$date'",
+                null
+            )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
         return total.toString()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPengunjungDewasa(): String {
+        val date = DateTimeFormatter
+            .ofPattern("yyyy.MM.dd")
+            .withZone(ZoneOffset.UTC)
+            .format(Instant.now())
         val db = this.readableDatabase
         val cursor: Cursor? =
-            db.rawQuery("SELECT SUM($COLUMN_COUNT_ADULT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+            db.rawQuery(
+                "SELECT SUM($COLUMN_COUNT_ADULT) FROM $TABLE_NAME WHERE $COLUMN_DATE ='$date'",
+                null
+            )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
         return total.toString()
     }
 
-    fun totalPengunjung1(): String {
-
-        val db = this.readableDatabase
-        val cursor: Cursor? =
-            db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE ", null)
-        cursor?.moveToFirst()
-        val total = cursor?.getInt(0)
-        cursor?.close()
-        return total.toString()
-    }
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun totalPengunjung1(): String {
+//
+////        val date = "2022.04.16"
+//        val date = DateTimeFormatter
+//            .ofPattern("yyyy.MM.dd")
+//            .withZone(ZoneOffset.UTC)
+//            .format(Instant.now())
+//
+//        val db = this.readableDatabase
+//        val cursor: Cursor? =
+//            db.rawQuery(
+//                "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE = '$date' ",
+//                null
+//            )
+//        cursor?.moveToFirst()
+//        val total = cursor?.getInt(0)
+//        cursor?.close()
+//        return total.toString()
+//    }
 
     companion object {
         const val DATABASE_VERSION = 1
@@ -166,6 +203,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 //        const val COLUMN_AGE = "age"
 //        const val COLUMN_EMAIL = "email"
         const val COLUMN_DATE = "date"
+        const val COLUMN_HOUR = "hour"
         const val COLUMN_IMAGE = "image"
         const val COLUMN_COUNT = "count"
         const val COLUMN_PRICE = "price"

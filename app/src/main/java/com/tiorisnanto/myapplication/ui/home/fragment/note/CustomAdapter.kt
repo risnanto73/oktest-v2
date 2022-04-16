@@ -45,6 +45,7 @@ class CustomAdapter(
 //        rowView.findViewById<TextView>(R.id.row_email).text = "Email: " + dataitem["email"]
         rowView.findViewById<TextView>(R.id.row_date).text = "Date: " + dataitem["date"]
 
+
         rowView.tag = position
         return rowView
 

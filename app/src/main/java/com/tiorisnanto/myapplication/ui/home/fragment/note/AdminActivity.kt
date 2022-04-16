@@ -1,6 +1,7 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.note
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tiorisnanto.myapplication.databinding.ActivityAdminBinding
@@ -39,7 +40,9 @@ class AdminActivity : AppCompatActivity() {
 
         binding.tvTotalPengunjungDewasaHariIni.text = dbHandler.totalPengunjungDewasa() + " Orang"
 
-        binding.tvTotalPendapatan.text = dbHandler.totalPengunjung1()
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            binding.tvTotalPendapatan.text = dbHandler.totalPengunjung1().toString()
+//        }
     }
 
 

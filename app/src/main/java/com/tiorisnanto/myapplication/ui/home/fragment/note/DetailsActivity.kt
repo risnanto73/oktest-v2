@@ -1,10 +1,10 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.note
 
 import android.annotation.SuppressLint
-import android.graphics.*
-import android.graphics.pdf.PdfDocument
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +15,6 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.tiorisnanto.myapplication.R
 import kotlinx.android.synthetic.main.activity_details.*
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.text.NumberFormat
 import java.util.*
 
@@ -25,6 +23,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private val dbHandler = DBHelper(this, null)
     lateinit var dateTex: TextClock
+    lateinit var hourText: TextClock
     lateinit var modifyId: String
     lateinit var imgCoder: ImageView
     lateinit var btnPrintPDF: Button
@@ -50,6 +49,7 @@ class DetailsActivity : AppCompatActivity() {
 //        ageEditText = findViewById(R.id.age)
 //        emailEditText = findViewById(R.id.email)
         dateTex = findViewById(R.id.date)
+        hourText = findViewById(R.id.hour)
         imgCoder = findViewById(R.id.imgQrCode)
         btnPrintPDF = findViewById(R.id.btnPrint)
         btnPlusDewasa = findViewById(R.id.btnDewasaPlus)
@@ -76,6 +76,7 @@ class DetailsActivity : AppCompatActivity() {
 
             txtTime.setText(intent.getStringExtra("time"))
             dateTex.setText(intent.getStringExtra("date"))
+            hourText.setText(intent.getStringExtra("hour"))
             textCountTotal.setText(intent.getStringExtra("count"))
             textHargaTotal.setText(intent.getStringExtra("price"))
             valueDewasa.setText(intent.getStringExtra("adult"))
@@ -89,11 +90,12 @@ class DetailsActivity : AppCompatActivity() {
 
                 val text = "Tiket Valid pada Tanggal "
                 val time = txtTime.text.toString()
+                val hour = hourText.text.toString()
                 val text2 = "dan anda pengunjungan ke"
                 val idPengunjung = intent.getStringExtra("id")
 
 
-                val combine = text + time + text2 + idPengunjung
+                val combine = text + time + text2 + hour + idPengunjung
                 val qrCodeWriter = QRCodeWriter()
                 try {
                     val bitMatrix =
@@ -138,8 +140,9 @@ class DetailsActivity : AppCompatActivity() {
 
         imgCoder.setOnClickListener {
             val date = txtTime.text.toString()
+            val hour = hourText.text.toString()
             Toast.makeText(
-                this, "Tiket Valid pada Tanggal " + "${date} dan anda pengunjungan ke ${modifyId}",
+                this, "Tiket Valid pada Tanggal " + "${date} ${hour} dan anda pengunjungan ke ${modifyId}",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -235,6 +238,7 @@ class DetailsActivity : AppCompatActivity() {
 //        val age = ageEditText.text.toString()
 //        val email = emailEditText.text.toString()
         val date = dateTex.text.toString()
+        val hour = hourText.text.toString()
         val count = textCountTotal.text.toString()
         val price = textHargaTotal.text.toString()
         val adult = valueDewasa.text.toString()
@@ -266,6 +270,7 @@ class DetailsActivity : AppCompatActivity() {
 
         dbHandler.insertRow(
             date,
+            hour,
             qrCode,
             count,
             price,
@@ -294,6 +299,7 @@ class DetailsActivity : AppCompatActivity() {
 //        val age = ageEditText.text.toString()
 //        val email = emailEditText.text.toString()
         val date = dateTex.text.toString()
+        val hour = hourText.text.toString()
         val count = textCountTotal.text.toString()
         val price = textHargaTotal.text.toString()
         val adult = valueDewasa.text.toString()
@@ -327,6 +333,7 @@ class DetailsActivity : AppCompatActivity() {
         dbHandler.updateRow(
             modifyId,
             date,
+            hour,
             qrCode,
             count,
             price,
