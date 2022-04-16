@@ -26,6 +26,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     // Adding new note
     //ok
+//    babbba
     fun insertRow(
         date: String,
         image: ByteArray,
