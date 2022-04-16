@@ -110,10 +110,19 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_ID DESC", null)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPendapatan(): String {
+        val date = DateTimeFormatter
+            .ofPattern("yyyy.MM.dd")
+            .withZone(ZoneOffset.UTC)
+            .format(Instant.now())
+
         val db = this.readableDatabase
         val cursor: Cursor? =
-            db.rawQuery("SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+            db.rawQuery(
+                "SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE = '$date'",
+                null
+            )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
@@ -128,7 +137,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             .format(Instant.now())
         val db = this.readableDatabase
         val cursor: Cursor? =
-            db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE= '$date'", null)
+            db.rawQuery(
+                "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE= '$date'",
+                null
+            )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()

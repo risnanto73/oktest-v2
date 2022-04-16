@@ -1,10 +1,10 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.note
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
 import com.tiorisnanto.myapplication.R
 
 class DataActivity : AppCompatActivity() {
@@ -42,10 +42,14 @@ class DataActivity : AppCompatActivity() {
             map["price"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_PRICE))
             map["adult"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ADULT))
             map["child"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHILD))
-            map["count_adult"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_COUNT_ADULT))
-            map["count_child"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_COUNT_CHILD))
-            map["adult_price"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ADULT_PRICE))
-            map["child_price"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHILD_PRICE))
+            map["count_adult"] =
+                cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_COUNT_ADULT))
+            map["count_child"] =
+                cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_COUNT_CHILD))
+            map["adult_price"] =
+                cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ADULT_PRICE))
+            map["child_price"] =
+                cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_CHILD_PRICE))
 
             dataList.add(map)
 
@@ -60,6 +64,7 @@ class DataActivity : AppCompatActivity() {
 //            intent.putExtra("age", dataList[+i]["age"])
 //            intent.putExtra("email", dataList[+i]["email"])
             intent.putExtra("time", dataList[+i]["date"])
+            intent.putExtra("hours", dataList[+i]["hour"])
             intent.putExtra("hour", dataList[+i]["hour"])
             intent.putExtra("count", dataList[+i]["count"])
             intent.putExtra("price", dataList[+i]["price"])

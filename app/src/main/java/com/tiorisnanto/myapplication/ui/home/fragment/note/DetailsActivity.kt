@@ -75,6 +75,7 @@ class DetailsActivity : AppCompatActivity() {
             modifyId = intent.getStringExtra("id")!!
 
             txtTime.setText(intent.getStringExtra("time"))
+            txtHour.setText(intent.getStringExtra("hours"))
             dateTex.setText(intent.getStringExtra("date"))
             hourText.setText(intent.getStringExtra("hour"))
             textCountTotal.setText(intent.getStringExtra("count"))
@@ -90,12 +91,13 @@ class DetailsActivity : AppCompatActivity() {
 
                 val text = "Tiket Valid pada Tanggal "
                 val time = txtTime.text.toString()
-                val hour = hourText.text.toString()
-                val text2 = "dan anda pengunjungan ke"
+                val jam = " jam "
+                val hour = txtHour.text.toString()
+                val text2 = " dan anda pengunjungan ke "
                 val idPengunjung = intent.getStringExtra("id")
 
 
-                val combine = text + time + text2 + hour + idPengunjung
+                val combine = text + time + jam + " " + hour+ text2 + idPengunjung
                 val qrCodeWriter = QRCodeWriter()
                 try {
                     val bitMatrix =
@@ -140,9 +142,10 @@ class DetailsActivity : AppCompatActivity() {
 
         imgCoder.setOnClickListener {
             val date = txtTime.text.toString()
-            val hour = hourText.text.toString()
+            val hour = txtHour.text.toString()
             Toast.makeText(
-                this, "Tiket Valid pada Tanggal " + "${date} ${hour} dan anda pengunjungan ke ${modifyId}",
+                this,
+                "Tiket Valid pada Tanggal " + "${date} ${hour} dan anda pengunjungan ke ${modifyId}",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -234,9 +237,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     fun add(v: View) {
-//        val name = nameEditText.text.toString()
-//        val age = ageEditText.text.toString()
-//        val email = emailEditText.text.toString()
+
         val date = dateTex.text.toString()
         val hour = hourText.text.toString()
         val count = textCountTotal.text.toString()
@@ -247,6 +248,7 @@ class DetailsActivity : AppCompatActivity() {
         val countChild = textCountAnak.text.toString()
         val priceAdult = textHargaDewasa.text.toString()
         val priceChild = textHargaAnak.text.toString()
+
 
         val qrCodeWriter = QRCodeWriter()
         val bitMatrix = qrCodeWriter.encode(date, BarcodeFormat.QR_CODE, 512, 512)
@@ -283,6 +285,8 @@ class DetailsActivity : AppCompatActivity() {
         )
         Toast.makeText(this, "Data Addeded", Toast.LENGTH_SHORT).show()
         finish()
+    }
+
 //        if (name.isEmpty() || age.isEmpty() || email.isEmpty()) {
 //            nameEditText.error = "Please enter name"
 //            ageEditText.error = "Please enter age"
@@ -291,8 +295,6 @@ class DetailsActivity : AppCompatActivity() {
 //
 //        }
 
-
-    }
 
     fun update(v: View) {
 //        val name = nameEditText.text.toString()

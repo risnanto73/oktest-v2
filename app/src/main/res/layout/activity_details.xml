@@ -103,6 +103,25 @@
                             android:editable="false"
                             android:gravity="center"
                             android:hint="Datetime" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilHour"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
+
+                        <EditText
+                            android:id="@+id/txtHour"
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:gravity="center"
+                            android:hint="Datetime" />
+
+
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextClock
