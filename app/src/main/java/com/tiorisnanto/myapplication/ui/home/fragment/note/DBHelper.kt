@@ -104,7 +104,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $COLUMN_ID DESC", null)
     }
 
-
     fun totalPendapatan(): String {
         val db = this.readableDatabase
         val cursor: Cursor? =
@@ -114,7 +113,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         cursor?.close()
         return total.toString()
     }
-
 
     fun totalPengunjung(): String {
         val db = this.readableDatabase
@@ -146,11 +144,11 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
-
     fun totalPengunjung1(): String {
+
         val db = this.readableDatabase
         val cursor: Cursor? =
-            db.rawQuery("SELECT STRFTIME($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE", null)
+            db.rawQuery("SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE ", null)
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
         cursor?.close()
