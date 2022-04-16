@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <Button-->
-<!--            android:id="@+id/btnDelete"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="5dp"-->
-<!--            android:maxLines="1"-->
-<!--            android:onClick="delete"-->
-<!--            android:text="Delete" />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/btnDelete"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginHorizontal="5dp"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:onClick="delete"-->
+        <!--            android:text="Delete" />-->
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgQrCode"
@@ -112,7 +112,20 @@
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginVertical="10dp"
-                        android:format24Hour="yyyy.MM.dd 'at' HH:mm:ss"
+                        android:format12Hour="yyyy.MM.dd"
+                        android:format24Hour="yyyy.MM.dd"
+                        android:gravity="center"
+                        android:hint="12-12-12" />
+
+                    <TextClock
+                        android:id="@+id/hour"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:format12Hour="HH:mm:ss"
+                        android:format24Hour="HH:mm:ss"
                         android:gravity="center"
                         android:hint="12-12-12" />
 
