@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".ui.home.fragment.wisata.pantai_malang.DetailPantaiMalangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.fragment.wisata.pantai_malang.DataPantaiMalangActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.fragment.wisata.coban_rais_malang.DetailRaisMalangActivity"
             android:exported="false" />
         <activity

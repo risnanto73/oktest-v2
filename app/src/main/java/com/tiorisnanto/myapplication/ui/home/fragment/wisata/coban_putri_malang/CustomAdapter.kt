@@ -39,6 +39,9 @@ class CustomAdapter(
         rowView.tag = position
         return rowView
 
+
+    }
+}
 //        val date = dataitem["date"]
 //        val imgCoder = rowView.findViewById<ImageView>(R.id.row_image)
 //        val qrCodeWriter = QRCodeWriter()
@@ -64,5 +67,3 @@ class CustomAdapter(
 //        Glide.with(context)
 //            .load(qrCode)
 //            .into(imgCoder)
-    }
-}

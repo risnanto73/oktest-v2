@@ -119,10 +119,11 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     }
 
     //get total pendapatan per hari
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getTotalPendapatan(): String {
         val date = DateTimeFormatter
             .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.UTC)
+            .withZone(ZoneOffset.systemDefault())
             .format(Instant.now())
 
         val db = this.writableDatabase
@@ -141,7 +142,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     fun totalPengunjung(): String {
         val date = DateTimeFormatter
             .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.UTC)
+            .withZone(ZoneOffset.systemDefault())
             .format(Instant.now())
 
         val db = this.readableDatabase
@@ -159,7 +160,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     fun totalPengunjungAnak(): String {
         val date = DateTimeFormatter
             .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.UTC)
+            .withZone(ZoneOffset.systemDefault())
             .format(Instant.now())
         val db = this.readableDatabase
         val cursor = db.rawQuery(
@@ -176,7 +177,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     fun totalPengunjungDewasa(): String {
         val date = DateTimeFormatter
             .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.UTC)
+            .withZone(ZoneOffset.systemDefault())
             .format(Instant.now())
         val db = this.readableDatabase
         val cursor = db.rawQuery(

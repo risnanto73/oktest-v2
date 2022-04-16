@@ -89,7 +89,7 @@ class DetailsActivity : AppCompatActivity() {
 
             btnPrintPDF.setOnClickListener {
 
-                val text = "Tiket Valid pada Tanggal "
+                val text = "Tiket Coban Putri Malang Valid pada Tanggal "
                 val time = txtTime.text.toString()
                 val jam = " jam "
                 val hour = txtHour.text.toString()
@@ -283,7 +283,7 @@ class DetailsActivity : AppCompatActivity() {
             priceAdult,
             priceChild
         )
-        Toast.makeText(this, "Data Addeded", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Ticket Coban Putri Malang telah ditambahkan", Toast.LENGTH_SHORT).show()
         finish()
     }
 

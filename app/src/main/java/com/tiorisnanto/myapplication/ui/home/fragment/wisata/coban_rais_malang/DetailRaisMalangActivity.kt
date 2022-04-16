@@ -50,7 +50,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
 
             binding.btnPrint.setOnClickListener {
 
-                val text = "Tiket Valid pada Tanggal "
+                val text = "Tiket Rais Malang Valid pada Tanggal "
                 val time = binding.txtTime.text.toString()
                 val jam = " jam "
                 val hour = binding.txtHour.text.toString()
@@ -239,7 +239,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
             priceAdult,
             priceChild
         )
-        Toast.makeText(this, "Data Addeded", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Ticket Rais Malang Telah ditambahkan", Toast.LENGTH_SHORT).show()
         finish()
     }
 
