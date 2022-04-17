@@ -223,7 +223,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
             else -> "tidak ada data untuk bulan ini"
         }
         cursor?.close()
-        return monthName
+        return total.toString() + " " + monthName
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
