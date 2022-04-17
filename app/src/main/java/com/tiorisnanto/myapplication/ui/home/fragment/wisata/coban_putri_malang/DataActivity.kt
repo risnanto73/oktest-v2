@@ -63,6 +63,7 @@ class DataActivity : AppCompatActivity() {
             intent.putExtra("time", dataList[+i]["date"])
             intent.putExtra("hours", dataList[+i]["hour"])
             intent.putExtra("hour", dataList[+i]["hour"])
+            intent.putExtra("months", dataList[+i]["month"])
             intent.putExtra("count", dataList[+i]["count"])
             intent.putExtra("price", dataList[+i]["price"])
             intent.putExtra("adult", dataList[+i]["adult"])

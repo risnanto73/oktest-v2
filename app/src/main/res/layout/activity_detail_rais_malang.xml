@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_detail_rais_malang"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
-    android:id="@+id/linear_detail_rais_malang"
     tools:context=".ui.home.fragment.wisata.coban_rais_malang.DetailRaisMalangActivity">
 
     <RelativeLayout
@@ -37,7 +37,7 @@
             android:layout_below="@id/imgQrCode"
             android:layout_marginVertical="10dp"
             android:gravity="center"
-            android:text="Coban Putri Malang"
+            android:text="Coban Rais Malang"
             android:textSize="20sp" />
 
         <ScrollView

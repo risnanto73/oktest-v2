@@ -37,7 +37,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
             "CREATE TABLE $TABLE_NAME " +
-                    "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_DATE TEXT, $COLUMN_HOUR TEXT, $COLUMN_IMAGE TEXT, $COLUMN_COUNT TEXT, $COLUMN_PRICE TEXT, $COLUMN_ADULT TEXT, $COLUMN_CHILD TEXT, $COLUMN_COUNT_ADULT TEXT, $COLUMN_COUNT_CHILD TEXT, $COLUMN_ADULT_PRICE TEXT, $COLUMN_CHILD_PRICE TEXT)"
+                    "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_DATE TEXT,$COLUMN_HOUR TEXT, $COLUMN_IMAGE TEXT, $COLUMN_COUNT TEXT, $COLUMN_PRICE TEXT, $COLUMN_ADULT TEXT, $COLUMN_CHILD TEXT, $COLUMN_COUNT_ADULT TEXT, $COLUMN_COUNT_CHILD TEXT, $COLUMN_ADULT_PRICE TEXT, $COLUMN_CHILD_PRICE TEXT)"
         )
     }
 
@@ -189,5 +189,60 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         cursor?.close()
         return total.toString()
     }
+
+    //get pendapatan per hari
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getPendapatan(): String {
+//        val date = DateTimeFormatter
+//            .ofPattern("MM")
+//            .withZone(ZoneOffset.systemDefault())
+//            .format(Instant.now())
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE",
+            null
+        )
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
+    //get pengunjung by date
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getPengunjung(): String {
+
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE",
+            null
+        )
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
+    //get month by date
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getMonth(): String {
+//        val date = DateTimeFormatter
+//            .ofPattern("yyyy.MM.dd")
+//            .withZone(ZoneOffset.systemDefault())
+//            .format(Instant.now())
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE ",
+            null
+        )
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
 
 }

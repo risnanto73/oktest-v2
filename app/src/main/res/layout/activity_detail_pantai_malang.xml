@@ -37,7 +37,7 @@
             android:layout_below="@id/imgQrCode"
             android:layout_marginVertical="10dp"
             android:gravity="center"
-            android:text="Coban Putri Malang"
+            android:text="Pantai Malang"
             android:textSize="20sp" />
 
         <ScrollView

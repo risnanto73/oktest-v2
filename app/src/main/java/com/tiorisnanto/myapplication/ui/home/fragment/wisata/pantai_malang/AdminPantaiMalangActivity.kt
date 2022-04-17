@@ -33,6 +33,8 @@ class AdminPantaiMalangActivity : AppCompatActivity() {
         binding.tvTotalPengunjungAnakHariIni.text = dbHandler.totalPengunjungAnak() + " Orang"
 
         binding.tvTotalPengunjungDewasaHariIni.text = dbHandler.totalPengunjungDewasa() + " Orang"
+
+
     }
 
 }

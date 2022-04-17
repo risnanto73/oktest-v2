@@ -124,6 +124,23 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilMonth"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
+
+                        <EditText
+                            android:id="@+id/txtMonth"
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:gravity="center"
+                            android:hint="Datetime" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <TextClock
                         android:id="@+id/date"
                         style="@style/TextAppearance.MaterialComponents.Headline5"
@@ -133,6 +150,18 @@
                         android:layout_marginVertical="10dp"
                         android:format12Hour="yyyy.MM.dd"
                         android:format24Hour="yyyy.MM.dd"
+                        android:gravity="center"
+                        android:hint="12-12-12" />
+
+                    <TextClock
+                        android:id="@+id/month"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:format12Hour="MM"
+                        android:format24Hour="MM"
                         android:gravity="center"
                         android:hint="12-12-12" />
 

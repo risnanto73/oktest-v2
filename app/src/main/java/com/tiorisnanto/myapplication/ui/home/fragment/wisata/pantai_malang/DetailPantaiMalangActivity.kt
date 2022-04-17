@@ -105,7 +105,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val bm = view.drawingCache
         val printHelper = PrintHelper(this)
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
-        printHelper.printBitmap("Tiket", bm)
+        printHelper.printBitmap("Tiket Pantai Malang", bm)
     }
 
     private fun decreaseInteger() {
@@ -198,8 +198,18 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val priceAdult = binding.txtHargaDewasa.text.toString()
         val priceChild = binding.txtHargaAnak.text.toString()
 
+        val text = "Tiket Pantai Malang Valid pada Tanggal "
+        val time = txtTime.text.toString()
+        val jam = " jam "
+        val hours = txtHour.text.toString()
+        val text2 = " dan anda pengunjungan ke "
+        val idPengunjung = intent.getStringExtra("id")
+
+
+        val combine = text + time + jam + " " + hours+ text2 + idPengunjung
+
         val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(date, BarcodeFormat.QR_CODE, 512, 512)
+        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -252,8 +262,18 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val priceAdult = binding.txtHargaDewasa.text.toString()
         val priceChild = binding.txtHargaAnak.text.toString()
 
+        val text = "Tiket Coban Putri Malang Valid pada Tanggal "
+        val time = txtTime.text.toString()
+        val jam = " jam "
+        val hours = txtHour.text.toString()
+        val text2 = " dan anda pengunjungan ke "
+        val idPengunjung = intent.getStringExtra("id")
+
+
+        val combine = text + time + jam + " " + hours+ text2 + idPengunjung
+
         val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(date, BarcodeFormat.QR_CODE, 512, 512)
+        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -302,4 +322,5 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         Toast.makeText(this, "Data Deleted", Toast.LENGTH_SHORT).show()
         finish()
     }
+
 }
