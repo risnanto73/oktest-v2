@@ -1,8 +1,8 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.tiorisnanto.myapplication.databinding.ActivityAdminBinding
 
 class AdminActivity : AppCompatActivity() {
@@ -40,8 +40,6 @@ class AdminActivity : AppCompatActivity() {
 //            binding.tvTotalPendapatan.text = dbHandler.totalPengunjung1().toString()
 //        }
     }
-
-
 
 
 }

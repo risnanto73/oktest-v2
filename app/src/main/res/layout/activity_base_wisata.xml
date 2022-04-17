@@ -11,11 +11,7 @@
         android:id="@+id/btnCobanPutriMalang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         app:button_background_color_normal="@color/profile"
         app:button_text="Coban Putri Malang"
         app:button_text_size="10sp"
@@ -27,7 +23,6 @@
         android:id="@+id/btnCobanRaisMalang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnCobanPutriMalang"
         android:layout_margin="10dp"
         app:button_background_color_normal="@color/colorAccent"
         app:button_text="Coban Rais Malang"
@@ -40,7 +35,6 @@
         android:id="@+id/btnPantaiMalang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnCobanRaisMalang"
         android:layout_margin="10dp"
         app:button_text="Pantai Malang"
         app:button_text_size="10sp"
@@ -49,30 +43,10 @@
         app:stroke_color="@color/colorAccent" />
 
     <TextView
-        android:id="@+id/txtMonthCobanPutriMalang"
-        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="April"
-        android:textColor="@color/black" />
+        android:layout_height="30dp"
+        android:text="Bulan"
+        android:id="@+id/tv_bulan"/>
 
-    <TextView
-        android:id="@+id/txtMonthPengunjungCobanPutriMalang"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="April"
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/txtMonthPendapatanCobanPutriMalang"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="April"
-        android:textColor="@color/black" />
 
 </LinearLayout>

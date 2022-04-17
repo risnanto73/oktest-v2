@@ -24,7 +24,7 @@ class DetailsActivity : AppCompatActivity() {
     private val dbHandler = DBHelper(this, null)
     lateinit var dateTex: TextClock
     lateinit var hourText: TextClock
-    lateinit var monthText: TextView
+    lateinit var monthText: TextClock
     lateinit var modifyId: String
     lateinit var imgCoder: ImageView
     lateinit var btnPrintPDF: Button
@@ -78,11 +78,9 @@ class DetailsActivity : AppCompatActivity() {
 
             txtTime.setText(intent.getStringExtra("time"))
             txtHour.setText(intent.getStringExtra("hours"))
-            txtMonth.setText(intent.getStringExtra("months"))
-
             dateTex.setText(intent.getStringExtra("date"))
             hourText.setText(intent.getStringExtra("hour"))
-
+            monthText.setText(intent.getStringExtra("month"))
             textCountTotal.setText(intent.getStringExtra("count"))
             textHargaTotal.setText(intent.getStringExtra("price"))
             valueDewasa.setText(intent.getStringExtra("adult"))
@@ -98,11 +96,12 @@ class DetailsActivity : AppCompatActivity() {
                 val time = txtTime.text.toString()
                 val jam = " jam "
                 val hour = txtHour.text.toString()
+                val month = month.text.toString()
                 val text2 = " dan anda pengunjungan ke "
                 val idPengunjung = intent.getStringExtra("id")
 
 
-                val combine = text + time + jam + " " + hour+ text2 + idPengunjung
+                val combine = text + time + jam + " " + hour + text2 + idPengunjung + month
                 val qrCodeWriter = QRCodeWriter()
                 try {
                     val bitMatrix =
@@ -145,6 +144,16 @@ class DetailsActivity : AppCompatActivity() {
             txtTime.visibility = View.GONE
         }
 
+//        imgCoder.setOnClickListener {
+//            val date = txtTime.text.toString()
+//            val hour = txtHour.text.toString()
+//            Toast.makeText(
+//                this,
+//                "Tiket Valid pada Tanggal " + "${date} ${hour} dan anda pengunjungan ke ${modifyId}",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+
     }
 
     private fun doPhotoPrint(byteArray: ByteArray) {
@@ -154,7 +163,7 @@ class DetailsActivity : AppCompatActivity() {
         val bm = view.drawingCache
         val printHelper = PrintHelper(this)
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
-        printHelper.printBitmap("Tiket Coban Rais Malang", bm)
+        printHelper.printBitmap("Tiket", bm)
     }
 
     private fun decreaseInteger() {
@@ -236,7 +245,6 @@ class DetailsActivity : AppCompatActivity() {
         val date = dateTex.text.toString()
         val hour = hourText.text.toString()
         val month = monthText.text.toString()
-
         val count = textCountTotal.text.toString()
         val price = textHargaTotal.text.toString()
         val adult = valueDewasa.text.toString()
@@ -246,17 +254,9 @@ class DetailsActivity : AppCompatActivity() {
         val priceAdult = textHargaDewasa.text.toString()
         val priceChild = textHargaAnak.text.toString()
 
-        val text = "Tiket Coban Putri Malang Valid pada Tanggal "
-        val time = txtTime.text.toString()
-        val jam = " jam "
-        val hours = txtHour.text.toString()
-        val text2 = " dan anda pengunjungan ke "
-        val idPengunjung = intent.getStringExtra("id")
-
-        val combine = text + time + jam + " " + hours+ text2 + idPengunjung
 
         val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+        val bitMatrix = qrCodeWriter.encode(date, BarcodeFormat.QR_CODE, 512, 512)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -278,6 +278,7 @@ class DetailsActivity : AppCompatActivity() {
         dbHandler.insertRow(
             date,
             hour,
+            month,
             qrCode,
             count,
             price,
@@ -288,7 +289,8 @@ class DetailsActivity : AppCompatActivity() {
             priceAdult,
             priceChild
         )
-        Toast.makeText(this, "Ticket Coban Putri Malang telah ditambahkan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Ticket Coban Putri Malang telah ditambahkan", Toast.LENGTH_SHORT)
+            .show()
         finish()
     }
 
@@ -302,8 +304,12 @@ class DetailsActivity : AppCompatActivity() {
 
 
     fun update(v: View) {
+//        val name = nameEditText.text.toString()
+//        val age = ageEditText.text.toString()
+//        val email = emailEditText.text.toString()
         val date = dateTex.text.toString()
         val hour = hourText.text.toString()
+        val month = monthText.text.toString()
         val count = textCountTotal.text.toString()
         val price = textHargaTotal.text.toString()
         val adult = valueDewasa.text.toString()
@@ -313,18 +319,8 @@ class DetailsActivity : AppCompatActivity() {
         val priceAdult = textHargaDewasa.text.toString()
         val priceChild = textHargaAnak.text.toString()
 
-        val text = "Tiket Coban Putri Malang Valid pada Tanggal "
-        val time = txtTime.text.toString()
-        val jam = " jam "
-        val hours = txtHour.text.toString()
-        val text2 = " dan anda pengunjungan ke "
-        val idPengunjung = intent.getStringExtra("id")
-
-
-        val combine = text + time + jam + " " + hours+ text2 + idPengunjung
-
         val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+        val bitMatrix = qrCodeWriter.encode(date, BarcodeFormat.QR_CODE, 512, 512)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -348,6 +344,7 @@ class DetailsActivity : AppCompatActivity() {
             modifyId,
             date,
             hour,
+            month,
             qrCode,
             count,
             price,
