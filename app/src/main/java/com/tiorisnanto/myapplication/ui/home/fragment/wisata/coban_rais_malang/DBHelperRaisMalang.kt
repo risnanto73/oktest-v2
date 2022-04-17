@@ -223,7 +223,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
             else -> "tidak ada data untuk bulan ini"
         }
         cursor?.close()
-        return monthName
+        return total.toString() + " " + monthName
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -235,7 +235,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
-                "SELECT SUM(${COLUMN_COUNT}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} ='$month'",
+                "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_MONTH ='$month'",
                 null
             )
         cursor?.moveToFirst()
@@ -254,7 +254,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
-                "SELECT SUM(${COLUMN_PRICE}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} ='$month'",
+                "SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_MONTH ='$month'",
                 null
             )
         cursor?.moveToFirst()
