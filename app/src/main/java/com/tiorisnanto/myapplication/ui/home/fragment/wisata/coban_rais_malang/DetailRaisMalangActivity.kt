@@ -3,12 +3,11 @@ package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_rais_malang
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.print.PrintHelper
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
@@ -38,6 +37,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
             binding.txtTime.setText(intent.getStringExtra("time"))
             binding.txtHour.setText(intent.getStringExtra("hours"))
             binding.date.setText(intent.getStringExtra("date"))
+            binding.month.setText(intent.getStringExtra("month"))
             binding.hour.setText(intent.getStringExtra("hour"))
             binding.txtCountTotal.setText(intent.getStringExtra("count"))
             binding.txtHargaTotal.setText(intent.getStringExtra("price"))
@@ -191,6 +191,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
 
     fun add(view: View) {
         val date = binding.date.text.toString()
+        val month = binding.month.text.toString()
         val hour = binding.hour.text.toString()
         val count = binding.txtCountTotal.text.toString()
         val price = binding.txtHargaTotal.text.toString()
@@ -238,6 +239,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
         dbHandler.insertRow(
             date,
             hour,
+            month,
             qrCode,
             count,
             price,
@@ -254,6 +256,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
 
     fun update(view: View) {
         val date = binding.date.text.toString()
+        val month = binding.month.text.toString()
         val hour = binding.hour.text.toString()
         val count = binding.txtCountTotal.text.toString()
         val price = binding.txtHargaTotal.text.toString()
@@ -272,7 +275,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
         val idPengunjung = intent.getStringExtra("id")
 
 
-        val combine = text + time + jam + " " + hours+ text2 + idPengunjung
+        val combine = text + time + jam + " " + hours + text2 + idPengunjung
 
         val qrCodeWriter = QRCodeWriter()
         val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
@@ -304,6 +307,7 @@ class DetailRaisMalangActivity : AppCompatActivity() {
             modifyId,
             date,
             hour,
+            month,
             qrCode,
             count,
             price,

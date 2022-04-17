@@ -47,6 +47,6 @@ class BaseWisataActivity : AppCompatActivity() {
     }
 
     private fun toDoList() {
-        binding.tvBulan.text = dbHandler.totalPengunjungDewasaMonth()
+        binding.tvBulan.text = dbHandler.getPendapatanMonth()
     }
 }

@@ -21,6 +21,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
         const val COLUMN_ID = "id"
 
         const val COLUMN_DATE = "date"
+        const val COLUMN_MONTH = "month"
         const val COLUMN_HOUR = "hour"
         const val COLUMN_IMAGE = "image"
         const val COLUMN_COUNT = "count"
@@ -36,7 +37,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
             "CREATE TABLE ${TABLE_NAME} " +
-                    "(${COLUMN_ID} INTEGER PRIMARY KEY, ${COLUMN_DATE} TEXT,${COLUMN_HOUR} TEXT,${COLUMN_IMAGE} BYTEARRAY, ${COLUMN_COUNT} TEXT, ${COLUMN_PRICE} TEXT, ${COLUMN_ADULT} TEXT, ${COLUMN_CHILD} TEXT, ${COLUMN_COUNT_ADULT} TEXT, ${COLUMN_COUNT_CHILD} TEXT, ${COLUMN_ADULT_PRICE} TEXT, ${COLUMN_CHILD_PRICE} TEXT)"
+                    "(${COLUMN_ID} INTEGER PRIMARY KEY, ${COLUMN_DATE} TEXT,${COLUMN_MONTH} TEXT,${COLUMN_HOUR} TEXT,${COLUMN_IMAGE} BYTEARRAY, ${COLUMN_COUNT} TEXT, ${COLUMN_PRICE} TEXT, ${COLUMN_ADULT} TEXT, ${COLUMN_CHILD} TEXT, ${COLUMN_COUNT_ADULT} TEXT, ${COLUMN_COUNT_CHILD} TEXT, ${COLUMN_ADULT_PRICE} TEXT, ${COLUMN_CHILD_PRICE} TEXT)"
         )
     }
 
@@ -47,6 +48,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
 
     fun insertRow(
         date: String,
+        month: String,
         hour: String,
         image: ByteArray,
         count: String,
@@ -60,6 +62,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
     ) {
         val values = ContentValues()
         values.put(COLUMN_DATE, date)
+        values.put(COLUMN_MONTH, month)
         values.put(COLUMN_HOUR, hour)
         values.put(COLUMN_IMAGE, image)
         values.put(COLUMN_COUNT, count)
@@ -78,7 +81,9 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
 
     fun updateRow(
         row_id: String,
+
         date: String,
+        month: String,
         hour: String,
         image: ByteArray,
         count: String,
@@ -95,6 +100,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
 //        values.put(COLUMN_AGE, age)
 //        values.put(COLUMN_EMAIL, email)
         values.put(COLUMN_DATE, date)
+        values.put(COLUMN_MONTH, month)
         values.put(COLUMN_HOUR, hour)
         values.put(COLUMN_IMAGE, image)
         values.put(COLUMN_COUNT, count)
@@ -195,6 +201,79 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
             )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
+        cursor?.close()
+        return total.toString()
+    }
+
+    //get pendapatan per bulan
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getPendapatanMonth(): String {
+        val month = DateTimeFormatter
+            .ofPattern("MM")
+            .withZone(ZoneOffset.systemDefault())
+            .format(Instant.now())
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM(${DBHelperPantaiMalang.COLUMN_PRICE}) FROM ${DBHelperPantaiMalang.TABLE_NAME} WHERE ${DBHelperPantaiMalang.COLUMN_MONTH} = '$month'",
+            null
+        )
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        val monthName = when (month) {
+            "01" -> "Januari"
+            "02" -> "Februari"
+            "03" -> "Maret"
+            "04" -> "April"
+            "05" -> "Mei"
+            "06" -> "Juni"
+            "07" -> "Juli"
+            "08" -> "Agustus"
+            "09" -> "September"
+            "10" -> "Oktober"
+            "11" -> "November"
+            "12" -> "Desember"
+            else -> "tidak ada data untuk bulan ini"
+        }
+        cursor?.close()
+        return " Pendapatan dari bulan " + monthName + "sejumlah" + total.toString()
+        cursor?.close()
+        return total.toString()
+    }
+
+    //get pengunjung by month
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getPengunjungMonth(): String {
+
+        val month = DateTimeFormatter
+            .ofPattern("MM")
+            .withZone(ZoneOffset.systemDefault())
+            .format(Instant.now())
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM(${DBHelperPantaiMalang.COLUMN_COUNT}) FROM ${DBHelperPantaiMalang.TABLE_NAME} WHERE ${DBHelperPantaiMalang.COLUMN_MONTH} = '$month'",
+            null
+        )
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        val monthName = when (month) {
+            "01" -> "Januari"
+            "02" -> "Februari"
+            "03" -> "Maret"
+            "04" -> "April"
+            "05" -> "Mei"
+            "06" -> "Juni"
+            "07" -> "Juli"
+            "08" -> "Agustus"
+            "09" -> "September"
+            "10" -> "Oktober"
+            "11" -> "November"
+            "12" -> "Desember"
+            else -> "tidak ada data untuk bulan ini"
+        }
+        cursor?.close()
+        return total.toString() + " pengunjung dari bulan " + monthName
         cursor?.close()
         return total.toString()
     }

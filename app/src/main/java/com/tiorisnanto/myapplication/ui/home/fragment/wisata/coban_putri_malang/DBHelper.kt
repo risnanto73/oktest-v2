@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import androidx.annotation.RequiresApi
-import java.text.DateFormat
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -185,21 +184,21 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
+    //get pendapatan per bulan
     @RequiresApi(Build.VERSION_CODES.O)
-    fun totalPengunjungDewasaMonth(): String {
+    fun getPendapatanMonth(): String {
         val month = DateTimeFormatter
             .ofPattern("MM")
             .withZone(ZoneOffset.systemDefault())
             .format(Instant.now())
-        val db = this.readableDatabase
-        val cursor: Cursor? =
-            db.rawQuery(
-                "SELECT SUM($COLUMN_COUNT_ADULT) FROM $TABLE_NAME WHERE $COLUMN_MONTH ='$month'",
-                null
-            )
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM(${DBHelper.COLUMN_PRICE}) FROM ${DBHelper.TABLE_NAME} WHERE ${DBHelper.COLUMN_MONTH} = '$month'",
+            null
+        )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
-//        give a condition when val month = 1 its will change to januari
         val monthName = when (month) {
             "01" -> "Januari"
             "02" -> "Februari"
@@ -216,42 +215,47 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             else -> "tidak ada data untuk bulan ini"
         }
         cursor?.close()
-        return total.toString() + " pengunjung dari bulan " + monthName
-    }
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun totalPengunjungAnakMonth(): String {
-        val month = DateTimeFormatter
-            .ofPattern("MM")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
-        val db = this.readableDatabase
-        val cursor: Cursor? =
-            db.rawQuery(
-                "SELECT SUM($COLUMN_COUNT_CHILD) FROM $TABLE_NAME WHERE $COLUMN_MONTH ='$month'",
-                null
-            )
-        cursor?.moveToFirst()
-        val total = cursor?.getInt(0)
-//        give a condition when val month = 1 its will change to januari
-        val monthName = when (month) {
-            "01" -> "Januari"
-            "02" -> "Februari"
-            "03" -> "Maret"
-            "04" -> "April"
-            "05" -> "Mei"
-            "06" -> "Juni"
-            "07" -> "Juli"
-            "08" -> "Agustus"
-            "09" -> "September"
-            "10" -> "Oktober"
-            "11" -> "November"
-            "12" -> "Desember"
-            else -> "tidak ada data untuk bulan ini"
-        }
+        return " Pendapatan dari bulan " + monthName + "sejumlah" + total.toString()
         cursor?.close()
-        return total.toString() + " pengunjung dari bulan " + monthName
+        return total.toString()
     }
 
+    //get pengunjung by month
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getPengunjungMonth(): String {
+
+        val month = DateTimeFormatter
+            .ofPattern("MM")
+            .withZone(ZoneOffset.systemDefault())
+            .format(Instant.now())
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM(${DBHelper.COLUMN_COUNT}) FROM ${DBHelper.TABLE_NAME} WHERE ${DBHelper.COLUMN_MONTH} = '$month'",
+            null
+        )
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+        val monthName = when (month) {
+            "01" -> "Januari"
+            "02" -> "Februari"
+            "03" -> "Maret"
+            "04" -> "April"
+            "05" -> "Mei"
+            "06" -> "Juni"
+            "07" -> "Juli"
+            "08" -> "Agustus"
+            "09" -> "September"
+            "10" -> "Oktober"
+            "11" -> "November"
+            "12" -> "Desember"
+            else -> "tidak ada data untuk bulan ini"
+        }
+        cursor?.close()
+        return total.toString() + " pengunjung dari bulan " + monthName
+        cursor?.close()
+        return total.toString()
+    }
 
 
 //

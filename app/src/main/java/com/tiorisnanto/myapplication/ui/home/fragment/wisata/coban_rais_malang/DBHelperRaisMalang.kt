@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang.DBHelper
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -20,7 +19,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         const val TABLE_NAME = "RaisMalang"
 
         const val COLUMN_ID = "id"
-
+        const val COLUMN_MONTH = "month"
         const val COLUMN_DATE = "date"
         const val COLUMN_HOUR = "hour"
         const val COLUMN_IMAGE = "image"
@@ -37,7 +36,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
             "CREATE TABLE $TABLE_NAME " +
-                    "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_DATE TEXT,$COLUMN_HOUR TEXT, $COLUMN_IMAGE TEXT, $COLUMN_COUNT TEXT, $COLUMN_PRICE TEXT, $COLUMN_ADULT TEXT, $COLUMN_CHILD TEXT, $COLUMN_COUNT_ADULT TEXT, $COLUMN_COUNT_CHILD TEXT, $COLUMN_ADULT_PRICE TEXT, $COLUMN_CHILD_PRICE TEXT)"
+                    "($COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_DATE TEXT,$COLUMN_MONTH TEXT,$COLUMN_HOUR TEXT, $COLUMN_IMAGE TEXT, $COLUMN_COUNT TEXT, $COLUMN_PRICE TEXT, $COLUMN_ADULT TEXT, $COLUMN_CHILD TEXT, $COLUMN_COUNT_ADULT TEXT, $COLUMN_COUNT_CHILD TEXT, $COLUMN_ADULT_PRICE TEXT, $COLUMN_CHILD_PRICE TEXT)"
         )
     }
 
@@ -49,6 +48,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     fun insertRow(
         date: String,
         hour: String,
+        month: String,
         image: ByteArray,
         count: String,
         price: String,
@@ -62,6 +62,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COLUMN_DATE, date)
+        contentValues.put(COLUMN_MONTH, month)
         contentValues.put(COLUMN_HOUR, hour)
         contentValues.put(COLUMN_IMAGE, image)
         contentValues.put(COLUMN_COUNT, count)
@@ -80,6 +81,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         id: String,
         date: String,
         hour: String,
+        month: String,
         image: ByteArray,
         count: String,
         price: String,
@@ -93,6 +95,7 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COLUMN_DATE, date)
+        contentValues.put(COLUMN_MONTH, month)
         contentValues.put(COLUMN_HOUR, hour)
         contentValues.put(COLUMN_IMAGE, image)
         contentValues.put(COLUMN_COUNT, count)
@@ -190,56 +193,75 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         return total.toString()
     }
 
-    //get pendapatan per hari
+    //get pendapatan per bulan
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getPendapatan(): String {
-//        val date = DateTimeFormatter
-//            .ofPattern("MM")
-//            .withZone(ZoneOffset.systemDefault())
-//            .format(Instant.now())
+    fun getPendapatanMonth(): String {
+        val month = DateTimeFormatter
+            .ofPattern("MM")
+            .withZone(ZoneOffset.systemDefault())
+            .format(Instant.now())
 
         val db = this.writableDatabase
         val cursor = db.rawQuery(
-            "SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_DATE",
+            "SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_MONTH = '$month'",
             null
         )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
+        val monthName = when (month) {
+            "01" -> "Januari"
+            "02" -> "Februari"
+            "03" -> "Maret"
+            "04" -> "April"
+            "05" -> "Mei"
+            "06" -> "Juni"
+            "07" -> "Juli"
+            "08" -> "Agustus"
+            "09" -> "September"
+            "10" -> "Oktober"
+            "11" -> "November"
+            "12" -> "Desember"
+            else -> "tidak ada data untuk bulan ini"
+        }
+        cursor?.close()
+        return " Pendapatan dari bulan " + monthName + "sejumlah" + total.toString()
         cursor?.close()
         return total.toString()
     }
 
-    //get pengunjung by date
+    //get pengunjung by month
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getPengunjung(): String {
+    fun getPengunjungMonth(): String {
 
+        val month = DateTimeFormatter
+            .ofPattern("MM")
+            .withZone(ZoneOffset.systemDefault())
+            .format(Instant.now())
 
         val db = this.writableDatabase
         val cursor = db.rawQuery(
-            "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE",
+            "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_MONTH = '$month'",
             null
         )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
+        val monthName = when (month) {
+            "01" -> "Januari"
+            "02" -> "Februari"
+            "03" -> "Maret"
+            "04" -> "April"
+            "05" -> "Mei"
+            "06" -> "Juni"
+            "07" -> "Juli"
+            "08" -> "Agustus"
+            "09" -> "September"
+            "10" -> "Oktober"
+            "11" -> "November"
+            "12" -> "Desember"
+            else -> "tidak ada data untuk bulan ini"
+        }
         cursor?.close()
-        return total.toString()
-    }
-
-    //get month by date
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getMonth(): String {
-//        val date = DateTimeFormatter
-//            .ofPattern("yyyy.MM.dd")
-//            .withZone(ZoneOffset.systemDefault())
-//            .format(Instant.now())
-
-        val db = this.writableDatabase
-        val cursor = db.rawQuery(
-            "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_DATE ",
-            null
-        )
-        cursor?.moveToFirst()
-        val total = cursor?.getInt(0)
+        return total.toString() + " pengunjung dari bulan " + monthName
         cursor?.close()
         return total.toString()
     }

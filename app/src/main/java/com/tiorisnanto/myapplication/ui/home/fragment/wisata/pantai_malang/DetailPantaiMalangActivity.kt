@@ -35,6 +35,8 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
             binding.txtTime.setText(intent.getStringExtra("time"))
             binding.txtHour.setText(intent.getStringExtra("hours"))
             binding.date.setText(intent.getStringExtra("date"))
+            binding.month.setText(intent.getStringExtra("month"))
+
             binding.hour.setText(intent.getStringExtra("hour"))
             binding.txtCountTotal.setText(intent.getStringExtra("count"))
             binding.txtHargaTotal.setText(intent.getStringExtra("price"))
@@ -188,6 +190,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
     fun add(view: View) {
         val date = binding.date.text.toString()
+        val month = binding.month.text.toString()
         val hour = binding.hour.text.toString()
         val count = binding.txtCountTotal.text.toString()
         val price = binding.txtHargaTotal.text.toString()
@@ -206,7 +209,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val idPengunjung = intent.getStringExtra("id")
 
 
-        val combine = text + time + jam + " " + hours+ text2 + idPengunjung
+        val combine = text + time + jam + " " + hours + text2 + idPengunjung
 
         val qrCodeWriter = QRCodeWriter()
         val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
@@ -235,6 +238,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val qrCode = byteArray
         dbHandler.insertRow(
             date,
+            month,
             hour,
             qrCode,
             count,
@@ -252,6 +256,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
     fun update(view: View) {
         val date = binding.date.text.toString()
+        val month = binding.month.text.toString()
         val hour = binding.hour.text.toString()
         val count = binding.txtCountTotal.text.toString()
         val price = binding.txtHargaTotal.text.toString()
@@ -270,7 +275,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val idPengunjung = intent.getStringExtra("id")
 
 
-        val combine = text + time + jam + " " + hours+ text2 + idPengunjung
+        val combine = text + time + jam + " " + hours + text2 + idPengunjung
 
         val qrCodeWriter = QRCodeWriter()
         val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
@@ -301,6 +306,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         dbHandler.updateRow(
             modifyId,
             date,
+            month,
             hour,
             qrCode,
             count,
