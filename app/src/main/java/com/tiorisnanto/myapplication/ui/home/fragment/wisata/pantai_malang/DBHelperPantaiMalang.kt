@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_rais_malang.DBHelperRaisMalang
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -205,21 +206,21 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
         return total.toString()
     }
 
-    //get pendapatan per bulan
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getPendapatanMonth(): String {
+    fun totalMonth(): String {
         val month = DateTimeFormatter
             .ofPattern("MM")
             .withZone(ZoneOffset.systemDefault())
             .format(Instant.now())
-
-        val db = this.writableDatabase
-        val cursor = db.rawQuery(
-            "SELECT SUM(${DBHelperPantaiMalang.COLUMN_PRICE}) FROM ${DBHelperPantaiMalang.TABLE_NAME} WHERE ${DBHelperPantaiMalang.COLUMN_MONTH} = '$month'",
-            null
-        )
+        val db = this.readableDatabase
+        val cursor: Cursor? =
+            db.rawQuery(
+                "SELECT SUM(${COLUMN_COUNT}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} ='$month'",
+                null
+            )
         cursor?.moveToFirst()
         val total = cursor?.getInt(0)
+        //give a condition when val month = 1 its will change to januari
         val monthName = when (month) {
             "01" -> "Januari"
             "02" -> "Februari"
@@ -236,14 +237,48 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
             else -> "tidak ada data untuk bulan ini"
         }
         cursor?.close()
-        return " Pendapatan dari bulan " + monthName + "sejumlah" + total.toString()
+        return monthName
+    }
+
+    //get pendapatan per bulan
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun totalPendapatanMonth(): String {
+        val month = DateTimeFormatter
+            .ofPattern("MM")
+            .withZone(ZoneOffset.systemDefault())
+            .format(Instant.now())
+
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(
+            "SELECT SUM(${COLUMN_PRICE}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} = '$month'",
+            null
+        )
+        cursor?.moveToFirst()
+        val total = cursor?.getInt(0)
+//        val monthName = when (month) {
+//            "01" -> "Januari"
+//            "02" -> "Februari"
+//            "03" -> "Maret"
+//            "04" -> "April"
+//            "05" -> "Mei"
+//            "06" -> "Juni"
+//            "07" -> "Juli"
+//            "08" -> "Agustus"
+//            "09" -> "September"
+//            "10" -> "Oktober"
+//            "11" -> "November"
+//            "12" -> "Desember"
+//            else -> "tidak ada data untuk bulan ini"
+//        }
+//        cursor?.close()
+//        return " Pendapatan dari bulan " + monthName + "sejumlah" + total.toString()
         cursor?.close()
         return total.toString()
     }
 
     //get pengunjung by month
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getPengunjungMonth(): String {
+    fun totalPengunjungMonth(): String {
 
         val month = DateTimeFormatter
             .ofPattern("MM")
@@ -252,7 +287,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
 
         val db = this.writableDatabase
         val cursor = db.rawQuery(
-            "SELECT SUM(${DBHelperPantaiMalang.COLUMN_COUNT}) FROM ${DBHelperPantaiMalang.TABLE_NAME} WHERE ${DBHelperPantaiMalang.COLUMN_MONTH} = '$month'",
+            "SELECT SUM(${COLUMN_COUNT}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} = '$month'",
             null
         )
         cursor?.moveToFirst()
