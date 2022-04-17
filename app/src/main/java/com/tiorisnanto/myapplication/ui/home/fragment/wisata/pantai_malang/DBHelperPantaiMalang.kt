@@ -215,7 +215,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
-                "SELECT SUM(${COLUMN_COUNT}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} ='$month'",
+                "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_MONTH ='$month'",
                 null
             )
         cursor?.moveToFirst()
@@ -250,7 +250,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
 
         val db = this.writableDatabase
         val cursor = db.rawQuery(
-            "SELECT SUM(${COLUMN_PRICE}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} = '$month'",
+            "SELECT SUM($COLUMN_PRICE) FROM $TABLE_NAME WHERE $COLUMN_MONTH = '$month'",
             null
         )
         cursor?.moveToFirst()
@@ -287,7 +287,7 @@ class DBHelperPantaiMalang(context: Context, factory: SQLiteDatabase.CursorFacto
 
         val db = this.writableDatabase
         val cursor = db.rawQuery(
-            "SELECT SUM(${COLUMN_COUNT}) FROM ${TABLE_NAME} WHERE ${COLUMN_MONTH} = '$month'",
+            "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_MONTH = '$month'",
             null
         )
         cursor?.moveToFirst()
