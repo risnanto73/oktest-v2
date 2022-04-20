@@ -7,23 +7,17 @@
     android:orientation="vertical"
     android:padding="15dp">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--        <Button-->
-        <!--            android:id="@+id/btnDelete"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginHorizontal="5dp"-->
-        <!--            android:maxLines="1"-->
-        <!--            android:onClick="delete"-->
-        <!--            android:text="Delete" />-->
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/imgQrCode"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:scaleType="fitXY"
             android:layout_centerHorizontal="true"
             android:src="@drawable/a_bg" />
 
@@ -37,6 +31,7 @@
             android:gravity="center"
             android:text="Coban Putri Malang"
             android:textSize="20sp" />
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -53,42 +48,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content">-->
-
-                    <!--                        <EditText-->
-                    <!--                            android:id="@+id/name"-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:hint="Name"-->
-                    <!--                            android:inputType="text" />-->
-                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content">-->
-
-                    <!--                        <EditText-->
-                    <!--                            android:id="@+id/age"-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:hint="Age"-->
-                    <!--                            android:inputType="number" />-->
-                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content">-->
-
-                    <!--                        <EditText-->
-                    <!--                            android:id="@+id/email"-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:hint="Email"-->
-                    <!--                            android:inputType="textEmailAddress" />-->
-                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilTime"
@@ -152,7 +111,6 @@
                         android:format24Hour="yyyy.MM.dd"
                         android:gravity="center"
                         android:hint="12-12-12" />
-
 
                     <TextClock
                         android:id="@+id/hour"

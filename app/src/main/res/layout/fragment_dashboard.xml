@@ -23,25 +23,32 @@
             app:civ_border_color="@color/white"
             app:civ_border_width="5dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+        <Button
+            android:id="@+id/btnGoTiket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="List Menu"
-            android:paddingHorizontal="15dp"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:startIconDrawable="@drawable/ic_baseline_person_24">
+            android:layout_margin="15dp"
+            android:text="go to tiket" />
 
-            <AutoCompleteTextView
-                android:id="@+id/txtComplete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:hint="List Menu"-->
+        <!--            android:paddingHorizontal="15dp"-->
+        <!--            app:boxCornerRadiusBottomEnd="10dp"-->
+        <!--            app:boxCornerRadiusBottomStart="10dp"-->
+        <!--            app:boxCornerRadiusTopEnd="10dp"-->
+        <!--            app:boxCornerRadiusTopStart="10dp"-->
+        <!--            app:startIconDrawable="@drawable/ic_baseline_person_24">-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+        <!--            <AutoCompleteTextView-->
+        <!--                android:id="@+id/txtComplete"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:inputType="none" />-->
+
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
     </LinearLayout>
 
@@ -63,8 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="10dp"
-                android:format24Hour="yyyy.MM.dd 'at' HH:mm:ss , z"
                 android:format12Hour="MM.dd 'at' HH:mm:ss , z"
+                android:format24Hour="yyyy.MM.dd 'at' HH:mm:ss , z"
                 android:gravity="center" />
 
             <ImageView

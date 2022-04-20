@@ -19,6 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".tiket.coban_putri_malang.DetailCobanPutriMalangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".tiket.coban_putri_malang.CobanPutriMalangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".tiket.coban_putri_malang.DashboardCobanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".tiket.TiketMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.fragment.wisata.pantai_malang.DetailPantaiMalangActivity"
             android:exported="false" />
         <activity
@@ -62,6 +74,10 @@
         <activity
             android:name=".onboarding.OnBoardingActivity"
             android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".auth.LoginActivity"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,10 +85,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".auth.LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

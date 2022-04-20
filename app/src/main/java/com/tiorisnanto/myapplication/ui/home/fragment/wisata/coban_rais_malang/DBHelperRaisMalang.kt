@@ -8,9 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang.DBHelper
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -123,12 +125,16 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     }
 
     //get total pendapatan per hari
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getTotalPendapatan(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
 
         val db = this.writableDatabase
         val cursor = db.rawQuery(
@@ -141,12 +147,16 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPengunjung(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
 
         val db = this.readableDatabase
         val cursor = db.rawQuery(
@@ -159,12 +169,16 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPengunjungAnak(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor = db.rawQuery(
             "SELECT SUM($COLUMN_COUNT_CHILD) FROM $TABLE_NAME WHERE $COLUMN_DATE = '$date'",
@@ -176,12 +190,17 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPengunjungDewasa(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor = db.rawQuery(
             "SELECT SUM($COLUMN_COUNT_ADULT) FROM $TABLE_NAME WHERE $COLUMN_DATE = '$date'",
@@ -194,12 +213,16 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun totalMonth(): String {
-        val month = DateTimeFormatter
-            .ofPattern("MM")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val month = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("MM")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("MM")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor = db.rawQuery(
             "SELECT SUM($COLUMN_COUNT) FROM $TABLE_NAME WHERE $COLUMN_MONTH = '$month'",
@@ -223,15 +246,19 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
             else -> "tidak ada data untuk bulan ini"
         }
         cursor?.close()
-        return total.toString() + " " + monthName
+        return monthName
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPengunjungMonth(): String {
-        val month = DateTimeFormatter
-            .ofPattern("MM")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val month = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("MM")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("MM")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
@@ -245,12 +272,16 @@ class DBHelperRaisMalang(context: Context, factory: SQLiteDatabase.CursorFactory
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun totalPendapatanMonth(): String {
-        val month = DateTimeFormatter
-            .ofPattern("MM")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val month = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("MM")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("MM")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(

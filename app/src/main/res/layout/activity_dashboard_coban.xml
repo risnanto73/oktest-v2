@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.fragment.wisata.coban_putri_malang.AdminActivity">
+    tools:context=".tiket.coban_putri_malang.DashboardCobanActivity">
 
     <LinearLayout
         android:id="@+id/layoutCardTotal"
@@ -49,7 +49,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:hint="797979"
                         android:textSize="30dp" />
 
 
@@ -83,13 +82,20 @@
                         style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:hint="7979797"
+                        android:layout_toLeftOf="@id/orangHariIni"
                         android:textSize="30dp" />
 
+                    <TextView
+                        android:id="@+id/orangHariIni"
+                        style="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="10dp"
+                        android:text="Orang" />
 
                 </RelativeLayout>
 
@@ -135,7 +141,6 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:hint="797979"
                         android:textSize="30dp" />
 
                 </RelativeLayout>
@@ -176,7 +181,6 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:hint="797979"
                         android:layout_marginBottom="10dp"
                         android:textSize="30dp" />
 

@@ -19,6 +19,7 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.squareup.picasso.Picasso
 import com.tiorisnanto.myapplication.R
 import com.tiorisnanto.myapplication.databinding.FragmentDashboardBinding
+import com.tiorisnanto.myapplication.tiket.TiketMainActivity
 import com.tiorisnanto.myapplication.ui.home.fragment.wisata.BaseWisataActivity
 import java.io.ByteArrayOutputStream
 
@@ -39,9 +40,9 @@ class DashboardFragment : Fragment() {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding!!.root
 
-        val list = resources.getStringArray(R.array.List)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, list)
-        binding!!.txtComplete.setAdapter(arrayAdapter)
+//        val list = resources.getStringArray(R.array.List)
+//        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, list)
+//        binding!!.txtComplete.setAdapter(arrayAdapter)
 
         return root
     }
@@ -50,6 +51,10 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showProfile()
+
+        binding!!.btnGoTiket.setOnClickListener {
+            startActivity(Intent(requireContext(), TiketMainActivity::class.java))
+        }
 
         binding!!.btnData.setOnClickListener {
             startActivity(Intent(requireContext(), BaseWisataActivity::class.java))
@@ -80,12 +85,6 @@ class DashboardFragment : Fragment() {
                 Toast.makeText(activity, "Wisata Coban Putri Malang ${data}", Toast.LENGTH_SHORT)
                     .show()
 
-//                val bundle = Bundle()
-//                bundle.putString("date", data)
-//                val intent = Intent(activity, DetailDashboardActivity::class.java)
-//                intent.putExtra("qrCode", byteArray)
-//                intent.putExtras(bundle)
-//                startActivity(intent)
 
                 doPhotoPrint(byteArray)
             } catch (e: WriterException) {

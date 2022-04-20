@@ -6,6 +6,23 @@
     android:orientation="vertical"
     android:padding="20dp">
 
+    <TextView
+        android:id="@+id/row_date"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="12-12-12" />
+
+    <TextView
+        android:id="@+id/row_hour"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/row_date"
+        android:hint="12-12-12" />
+
     <!--    <TextView-->
     <!--        android:id="@+id/row_name"-->
     <!--        android:layout_width="wrap_content"-->
@@ -34,22 +51,7 @@
 
     <!--    </LinearLayout>-->
 
-    <TextView
-        android:id="@+id/row_date"
-        style="@style/TextAppearance.MaterialComponents.Headline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="12-12-12" />
 
-    <TextView
-        android:id="@+id/row_hour"
-        style="@style/TextAppearance.MaterialComponents.Headline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/row_date"
-        android:hint="12-12-12" />
 
     <!--    <ImageView-->
     <!--        android:id="@+id/row_image"-->

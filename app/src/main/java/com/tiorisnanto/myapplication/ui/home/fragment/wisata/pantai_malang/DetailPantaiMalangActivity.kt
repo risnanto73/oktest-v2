@@ -48,6 +48,8 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
             binding.txtHargaAnak.setText(intent.getStringExtra("child_price"))
 
             binding.btnPrint.setOnClickListener {
+                btnReset.visibility = View.GONE
+                btnPrint.visibility = View.GONE
 
                 val text = "Tiket Pantai Malang Valid pada Tanggal "
                 val time = binding.txtTime.text.toString()
@@ -88,6 +90,10 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
             }
 
             binding.btnAdd.visibility = View.GONE
+            tilTime.visibility = View.GONE
+            txtTime.visibility = View.GONE
+            tilDewasa.visibility = View.GONE
+            tilAnak.visibility = View.GONE
 
         } else {
             binding.btnUpdate.visibility = View.GONE

@@ -50,6 +50,9 @@ class DetailRaisMalangActivity : AppCompatActivity() {
 
             binding.btnPrint.setOnClickListener {
 
+                btnReset.visibility = View.GONE
+                btnPrint.visibility = View.GONE
+
                 val text = "Tiket Rais Malang Valid pada Tanggal "
                 val time = binding.txtTime.text.toString()
                 val jam = " jam "
@@ -89,6 +92,10 @@ class DetailRaisMalangActivity : AppCompatActivity() {
             }
 
             binding.btnAdd.visibility = View.GONE
+            tilTime.visibility = View.GONE
+            txtTime.visibility = View.GONE
+            tilDewasa.visibility = View.GONE
+            tilAnak.visibility = View.GONE
 
         } else {
             binding.btnUpdate.visibility = View.GONE

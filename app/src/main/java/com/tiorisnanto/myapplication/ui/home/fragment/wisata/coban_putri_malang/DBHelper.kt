@@ -7,12 +7,33 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
+
+    companion object {
+        const val DATABASE_VERSION = 1
+        const val DATABASE_NAME = "CobanPutriMalang.db"
+        const val TABLE_NAME = "CobanPutriMalang"
+        const val COLUMN_ID = "id"
+        const val COLUMN_DATE = "date"
+        const val COLUMN_MONTH = "month"
+        const val COLUMN_HOUR = "hour"
+        const val COLUMN_IMAGE = "image"
+        const val COLUMN_COUNT = "count"
+        const val COLUMN_PRICE = "price"
+        const val COLUMN_ADULT = "adult"
+        const val COLUMN_CHILD = "child"
+        const val COLUMN_COUNT_ADULT = "count_adult"
+        const val COLUMN_COUNT_CHILD = "count_child"
+        const val COLUMN_ADULT_PRICE = "adult_price"
+        const val COLUMN_CHILD_PRICE = "child_price"
+    }
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
@@ -106,12 +127,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
     //DATA UNTUK KE DASHBOARD
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPendapatan(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
 
         val db = this.readableDatabase
         val cursor: Cursor? =
@@ -125,12 +151,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPengunjung(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
 
         val db = this.readableDatabase
         val cursor: Cursor? =
@@ -144,12 +175,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPengunjungAnak(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
@@ -162,12 +198,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPengunjungDewasa(): String {
-        val date = DateTimeFormatter
-            .ofPattern("yyyy.MM.dd")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("yyyy.MM.dd")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("yyyy.MM.dd")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
@@ -181,12 +222,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
     //DATA UNTUK KE BASE WISATA
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalMonth(): String {
-        val month = DateTimeFormatter
-            .ofPattern("MM")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val month = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("MM")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("MM")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
@@ -215,12 +261,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return monthName
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPengunjungMonth(): String {
-        val month = DateTimeFormatter
-            .ofPattern("MM")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val month = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("MM")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("MM")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
@@ -233,12 +284,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return total.toString()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun totalPendapatanMonth(): String {
-        val month = DateTimeFormatter
-            .ofPattern("MM")
-            .withZone(ZoneOffset.systemDefault())
-            .format(Instant.now())
+        val month = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter
+                .ofPattern("MM")
+                .withZone(ZoneOffset.systemDefault())
+                .format(Instant.now())
+        } else {
+            val date = SimpleDateFormat("MM")
+            date.format(Date())
+        }
         val db = this.readableDatabase
         val cursor: Cursor? =
             db.rawQuery(
@@ -252,7 +308,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
 //    //get pendapatan per bulan
-//    @RequiresApi(Build.VERSION_CODES.O)
+//
 //    fun getPendapatanMonth(): String {
 //        val month = DateTimeFormatter
 //            .ofPattern("MM")
@@ -288,7 +344,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 //    }
 //
 //    //get pengunjung by month
-//    @RequiresApi(Build.VERSION_CODES.O)
+//
 //    fun getPengunjungMonth(): String {
 //
 //        val month = DateTimeFormatter
@@ -324,26 +380,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 //        return total.toString()
 //    }
 
-    companion object {
-        const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "CobanPutriMalang.db"
-        const val TABLE_NAME = "CobanPutriMalang"
 
-        const val COLUMN_ID = "id"
-
-        const val COLUMN_DATE = "date"
-        const val COLUMN_MONTH = "month"
-        const val COLUMN_HOUR = "hour"
-        const val COLUMN_IMAGE = "image"
-        const val COLUMN_COUNT = "count"
-        const val COLUMN_PRICE = "price"
-        const val COLUMN_ADULT = "adult"
-        const val COLUMN_CHILD = "child"
-        const val COLUMN_COUNT_ADULT = "count_adult"
-        const val COLUMN_COUNT_CHILD = "count_child"
-        const val COLUMN_ADULT_PRICE = "adult_price"
-        const val COLUMN_CHILD_PRICE = "child_price"
-    }
 
 
 }

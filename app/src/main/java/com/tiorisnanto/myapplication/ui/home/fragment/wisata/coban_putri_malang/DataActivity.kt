@@ -55,6 +55,7 @@ class DataActivity : AppCompatActivity() {
 
             cursor.moveToNext()
         }
+
         findViewById<ListView>(R.id.listView).adapter =
             CustomAdapter(this@DataActivity, dataList)
         findViewById<ListView>(R.id.listView).setOnItemClickListener { _, _, i, _ ->

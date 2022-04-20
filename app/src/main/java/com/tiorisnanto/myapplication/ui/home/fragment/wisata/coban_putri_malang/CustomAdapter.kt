@@ -34,11 +34,8 @@ class CustomAdapter(
         val rowView = inflater.inflate(R.layout.list_row, parent, false)
         rowView.findViewById<TextView>(R.id.row_date).text = "Date: " + dataitem["date"]
         rowView.findViewById<TextView>(R.id.row_hour).text = " at " + dataitem["hour"]
-
-
         rowView.tag = position
         return rowView
-
 
     }
 }

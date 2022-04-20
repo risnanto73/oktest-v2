@@ -2,31 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linear_detail_rais_malang"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="15dp"
-    tools:context=".ui.home.fragment.wisata.coban_rais_malang.DetailRaisMalangActivity">
+    tools:context=".tiket.coban_putri_malang.DetailCobanPutriMalangActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--        <Button-->
-        <!--            android:id="@+id/btnDelete"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginHorizontal="5dp"-->
-        <!--            android:maxLines="1"-->
-        <!--            android:onClick="delete"-->
-        <!--            android:text="Delete" />-->
-
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgQrCode"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:scaleType="fitXY"
             android:layout_centerHorizontal="true"
             android:src="@drawable/a_bg" />
 
@@ -38,7 +26,7 @@
             android:layout_below="@id/imgQrCode"
             android:layout_marginVertical="10dp"
             android:gravity="center"
-            android:text="Coban Rais Malang"
+            android:text="Coban Putri Malang"
             android:textSize="20sp" />
 
         <ScrollView
@@ -56,42 +44,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content">-->
-
-                    <!--                        <EditText-->
-                    <!--                            android:id="@+id/name"-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:hint="Name"-->
-                    <!--                            android:inputType="text" />-->
-                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content">-->
-
-                    <!--                        <EditText-->
-                    <!--                            android:id="@+id/age"-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:hint="Age"-->
-                    <!--                            android:inputType="number" />-->
-                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content">-->
-
-                    <!--                        <EditText-->
-                    <!--                            android:id="@+id/email"-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:hint="Email"-->
-                    <!--                            android:inputType="textEmailAddress" />-->
-                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilTime"
@@ -127,6 +79,40 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilMonth"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
+
+                        <EditText
+                            android:id="@+id/txtMonth"
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:gravity="center"
+                            android:hint="Datetime" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilYear"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
+
+                        <EditText
+                            android:id="@+id/txtYear"
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:editable="false"
+                            android:gravity="center"
+                            android:hint="Datetime" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <TextClock
                         android:id="@+id/date"
                         style="@style/TextAppearance.MaterialComponents.Headline5"
@@ -138,6 +124,7 @@
                         android:format24Hour="yyyy.MM.dd"
                         android:gravity="center"
                         android:hint="12-12-12" />
+
 
                     <TextClock
                         android:id="@+id/hour"
@@ -160,6 +147,19 @@
                         android:layout_marginVertical="10dp"
                         android:format12Hour="MM"
                         android:format24Hour="MM"
+                        android:gravity="center"
+                        android:hint="12-12-12" />
+
+
+                    <TextClock
+                        android:id="@+id/year"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginVertical="10dp"
+                        android:format12Hour="yy"
+                        android:format24Hour="yy"
                         android:gravity="center"
                         android:hint="12-12-12" />
 
@@ -532,7 +532,6 @@
             </LinearLayout>
 
         </ScrollView>
-
 
     </RelativeLayout>
 

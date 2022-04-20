@@ -1,11 +1,16 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.print.PrintHelper
@@ -22,10 +27,11 @@ import java.util.*
 class DetailsActivity : AppCompatActivity() {
 
     private val dbHandler = DBHelper(this, null)
+    lateinit var modifyId: String
+
     lateinit var dateTex: TextClock
     lateinit var hourText: TextClock
     lateinit var monthText: TextClock
-    lateinit var modifyId: String
     lateinit var imgCoder: ImageView
     lateinit var btnPrintPDF: Button
     lateinit var btnPlusDewasa: Button
@@ -67,7 +73,6 @@ class DetailsActivity : AppCompatActivity() {
         textCountTotal = findViewById(R.id.txtCountTotal)
         textHargaTotal = findViewById(R.id.txtHargaTotal)
 
-
         increaseInteger()
 
         decreaseInteger()
@@ -78,6 +83,7 @@ class DetailsActivity : AppCompatActivity() {
 
             txtTime.setText(intent.getStringExtra("time"))
             txtHour.setText(intent.getStringExtra("hours"))
+
             dateTex.setText(intent.getStringExtra("date"))
             hourText.setText(intent.getStringExtra("hour"))
             monthText.setText(intent.getStringExtra("month"))
@@ -91,6 +97,9 @@ class DetailsActivity : AppCompatActivity() {
             textHargaAnak.setText(intent.getStringExtra("child_price"))
 
             btnPrintPDF.setOnClickListener {
+
+                btnReset.visibility = View.GONE
+                btnPrintPDF.visibility = View.GONE
 
                 val text = "Tiket Coban Putri Malang Valid pada Tanggal "
                 val time = txtTime.text.toString()
@@ -135,13 +144,15 @@ class DetailsActivity : AppCompatActivity() {
             }
 
             findViewById<Button>(R.id.btnAdd).visibility = View.GONE
+            tilTime.visibility = View.GONE
+            txtTime.visibility = View.GONE
+            tilDewasa.visibility = View.GONE
+            tilAnak.visibility = View.GONE
         } else {
             findViewById<Button>(R.id.btnUpdate).visibility = View.GONE
             findViewById<Button>(R.id.btnDelete).visibility = View.GONE
             findViewById<Button>(R.id.btnPrint).visibility = View.GONE
             findViewById<Button>(R.id.btnReset).visibility = View.GONE
-            tilTime.visibility = View.GONE
-            txtTime.visibility = View.GONE
         }
 
 //        imgCoder.setOnClickListener {
@@ -156,15 +167,33 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
+    private fun createBitmapFromView(context: Context, view: View): Bitmap? {
+        val displayMetrics = DisplayMetrics()
+        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        view.layoutParams =
+            ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+        view.buildDrawingCache()
+        val bitmap =
+            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
     private fun doPhotoPrint(byteArray: ByteArray) {
         val view = findViewById<View>(R.id.activity_details) as LinearLayout
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
         val printHelper = PrintHelper(this)
+        printHelper.orientation = 1
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
         printHelper.printBitmap("Tiket", bm)
     }
+//
+
 
     private fun decreaseInteger() {
 
@@ -173,15 +202,20 @@ class DetailsActivity : AppCompatActivity() {
             val hargaAnak = 5000
             if (valueDewasa.text.toString().toInt() > 0) {
                 valueDewasa.text = (valueDewasa.text.toString().toInt() - 1).toString()
+
                 textCountDewasa.text = valueDewasa.text.toString()
+
                 textHargaDewasa.text =
                     (valueDewasa.text.toString().toInt() * hargaDewasa).toString()
+
                 textCountTotal.text =
                     (valueDewasa.text.toString().toInt() + valueAnak.text.toString()
                         .toInt()).toString()
+
                 textHargaTotal.text =
                     (valueDewasa.text.toString().toInt() * hargaDewasa + valueAnak.text.toString()
                         .toInt() * hargaAnak).toString()
+
             }
         }
 
@@ -189,12 +223,17 @@ class DetailsActivity : AppCompatActivity() {
             val hargaAnak = 5000
             val hargaDewasa = 10000
             if (valueAnak.text.toString().toInt() > 0) {
+
                 valueAnak.text = (valueAnak.text.toString().toInt() - 1).toString()
+
                 textCountAnak.text = valueAnak.text.toString()
+
                 textHargaAnak.text = (valueAnak.text.toString().toInt() * hargaAnak).toString()
-                txtCountTotal.text =
+
+                textCountTotal.text =
                     (valueDewasa.text.toString().toInt() + valueAnak.text.toString()
                         .toInt()).toString()
+
                 textHargaTotal.text =
                     (valueDewasa.text.toString().toInt() * hargaDewasa + valueAnak.text.toString()
                         .toInt() * hargaAnak).toString()
@@ -211,14 +250,18 @@ class DetailsActivity : AppCompatActivity() {
             if (valueDewasa.text.toString().toInt() >= 0) {
                 valueDewasa.text = (valueDewasa.text.toString().toInt() + 1).toString()
                 textCountDewasa.text = valueDewasa.text.toString()
+
                 textHargaDewasa.text =
                     (valueDewasa.text.toString().toInt() * hargaDewasa).toString()
+
                 textCountTotal.text =
                     (valueDewasa.text.toString().toInt() + valueAnak.text.toString()
                         .toInt()).toString()
+
                 textHargaTotal.text =
                     (valueDewasa.text.toString().toInt() * hargaDewasa + valueAnak.text.toString()
                         .toInt() * hargaAnak).toString()
+
             }
         }
 
@@ -227,11 +270,15 @@ class DetailsActivity : AppCompatActivity() {
             val hargaDewasa = 10000
             if (valueAnak.text.toString().toInt() >= 0) {
                 valueAnak.text = (valueAnak.text.toString().toInt() + 1).toString()
+
                 textCountAnak.text = valueAnak.text.toString()
+
                 textHargaAnak.text = (valueAnak.text.toString().toInt() * hargaAnak).toString()
+
                 textCountTotal.text =
                     (valueDewasa.text.toString().toInt() + valueAnak.text.toString()
                         .toInt()).toString()
+
                 textHargaTotal.text =
                     (valueDewasa.text.toString().toInt() * hargaDewasa + valueAnak.text.toString()
                         .toInt() * hargaAnak).toString()
@@ -293,14 +340,6 @@ class DetailsActivity : AppCompatActivity() {
             .show()
         finish()
     }
-
-//        if (name.isEmpty() || age.isEmpty() || email.isEmpty()) {
-//            nameEditText.error = "Please enter name"
-//            ageEditText.error = "Please enter age"
-//            emailEditText.error = "Please enter email"
-//        } else {
-//
-//        }
 
 
     fun update(v: View) {
@@ -367,7 +406,8 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun formatRupiah(number: Double): String? {
         val localeID = Locale("in", "ID")
-        val formatRupiah: NumberFormat = NumberFormat.getCurrencyInstance(localeID)
+        val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
         return formatRupiah.format(number)
     }
+
 }

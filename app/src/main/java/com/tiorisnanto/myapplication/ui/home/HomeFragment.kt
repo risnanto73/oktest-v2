@@ -16,12 +16,9 @@ import com.tiorisnanto.myapplication.ui.home.fragment.NoteFragment
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var binding: FragmentHomeBinding? = null
     private lateinit var auth: FirebaseAuth
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,45 +26,33 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        return root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = HomeViewPagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = adapter
+        binding!!.viewPager.adapter = adapter
         adapter.addFragment(DashboardFragment(), "Dashboard")
         adapter.addFragment(CartFragment(), "Cart")
         adapter.addFragment(MessageFragment(), "Message")
         adapter.addFragment(NoteFragment(), "Note")
-        binding.viewPager.adapter = adapter
-        binding.tabs.setupWithViewPager(binding.viewPager)
+        binding!!.viewPager.adapter = adapter
+        binding!!.tabs.setupWithViewPager(binding!!.viewPager)
 
-        binding.tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_home_24)
-        binding.tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_add_shopping_cart_24)
-        binding.tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_chrome_reader_mode_24)
-        binding.tabs.getTabAt(3)!!.setIcon(R.drawable.ic_baseline_chrome_reader_mode_24)
+        binding!!.tabs.getTabAt(0)!!.setIcon(R.drawable.ic_baseline_home_24)
+        binding!!.tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_add_shopping_cart_24)
+        binding!!.tabs.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_chrome_reader_mode_24)
+        binding!!.tabs.getTabAt(3)!!.setIcon(R.drawable.ic_baseline_chrome_reader_mode_24)
 
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        codeScanner.startPreview()
-//    }
-//
-//    override fun onPause() {
-//        codeScanner.releaseResources()
-//        super.onPause()
-//    }
 
 }
