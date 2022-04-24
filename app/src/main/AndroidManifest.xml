@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".ui.home.NoteActivity"
+            android:exported="false" />
+        <activity
             android:name=".tiket.coban_putri_malang.DetailCobanPutriMalangActivity"
             android:exported="false" />
         <activity

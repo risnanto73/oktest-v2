@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tiorisnanto.myapplication.databinding.FragmentNoteBinding
 
+
 class NoteFragment : Fragment() {
 
     private lateinit var binding: FragmentNoteBinding
@@ -18,6 +19,12 @@ class NoteFragment : Fragment() {
     ): View? {
         binding = FragmentNoteBinding.inflate(inflater, container, false)
         return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
 }

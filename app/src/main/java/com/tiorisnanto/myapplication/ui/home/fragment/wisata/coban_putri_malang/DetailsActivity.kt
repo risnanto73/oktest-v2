@@ -9,17 +9,26 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.setPadding
+import androidx.core.view.size
 import androidx.print.PrintHelper
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
+import com.itextpdf.text.BaseColor
+import com.itextpdf.text.Document
+import com.itextpdf.text.PageSize
+import com.itextpdf.text.pdf.PdfWriter
 import com.tiorisnanto.myapplication.R
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.fragment_view_pager.*
 import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
 import java.text.NumberFormat
 import java.util.*
 
@@ -109,8 +118,7 @@ class DetailsActivity : AppCompatActivity() {
                 val text2 = " dan anda pengunjungan ke "
                 val idPengunjung = intent.getStringExtra("id")
 
-
-                val combine = text + time + jam + " " + hour + text2 + idPengunjung + month
+                val combine = text + time + jam + " " + hour + text2 + idPengunjung
                 val qrCodeWriter = QRCodeWriter()
                 try {
                     val bitMatrix =
@@ -155,15 +163,6 @@ class DetailsActivity : AppCompatActivity() {
             findViewById<Button>(R.id.btnReset).visibility = View.GONE
         }
 
-//        imgCoder.setOnClickListener {
-//            val date = txtTime.text.toString()
-//            val hour = txtHour.text.toString()
-//            Toast.makeText(
-//                this,
-//                "Tiket Valid pada Tanggal " + "${date} ${hour} dan anda pengunjungan ke ${modifyId}",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
 
     }
 
@@ -171,7 +170,10 @@ class DetailsActivity : AppCompatActivity() {
         val displayMetrics = DisplayMetrics()
         (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
         view.layoutParams =
-            ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
         view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
         view.buildDrawingCache()
@@ -187,6 +189,7 @@ class DetailsActivity : AppCompatActivity() {
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
+        bm.setPixel(0, 0, Color.BLACK)
         val printHelper = PrintHelper(this)
         printHelper.orientation = 1
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
