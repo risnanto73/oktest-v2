@@ -189,7 +189,6 @@ class DetailsActivity : AppCompatActivity() {
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
-        bm.setPixel(0, 0, Color.BLACK)
         val printHelper = PrintHelper(this)
         printHelper.orientation = 1
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
@@ -341,7 +340,7 @@ class DetailsActivity : AppCompatActivity() {
         )
         Toast.makeText(this, "Ticket Coban Putri Malang telah ditambahkan", Toast.LENGTH_SHORT)
             .show()
-        finish()
+            finish()
     }
 
 
