@@ -79,12 +79,12 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
                         }
                     }
 
-                    val stream = ByteArrayOutputStream()
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                    val byteArray = stream.toByteArray()
-                    binding.imgQrCode.setImageBitmap(bmp)
+//                    val stream = ByteArrayOutputStream()
+//                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//                    val byteArray = stream.toByteArray()
+//                    binding.imgQrCode.setImageBitmap(bmp)
 
-                    doPhotoPrint(byteArray)
+//                    doPhotoPrint(byteArray)
                 } catch (e: WriterException) {
                     e.printStackTrace()
                 }
