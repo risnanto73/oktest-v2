@@ -91,9 +91,9 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
                     val byteArray = stream.toByteArray()
                     binding.imgQrCode.setImageBitmap(bmp)
 
-                    doPhotoPrint(byteArray)
+//                    doPhotoPrint(byteArray)
 
-//                    doWebViewPrint()
+                    doWebViewPrint()
                 } catch (e: WriterException) {
                     e.printStackTrace()
                 }
@@ -118,81 +118,81 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
     private var mWebView: WebView? = null
 
-//    private fun doWebViewPrint() {
-//        // Create a WebView object specifically for printing
-//        val webView = WebView(this)
-//        webView.webViewClient = object : WebViewClient() {
-//
-//            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) =
-//                false
-//
-//            override fun onPageFinished(view: WebView, url: String) {
-//                Log.i(TAG, "page finished loading $url")
-//                createWebPrintJob(view)
-//                mWebView = null
-//            }
-//        }
-//
-//        // Generate an HTML document on the fly:
-//        val text = "Tiket Pantai Malang Valid pada Tanggal "
-//        val time = txtTime.text.toString()
-//        val jam = " jam "
-//        val hours = txtHour.text.toString()
-//        val text2 = " dan anda pengunjungan ke "
-//        val idPengunjung = intent.getStringExtra("id")
-//        val combine = text + time + jam + " " + hours + text2 + idPengunjung
-//        val qrCodeWriter = QRCodeWriter()
-//        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
-//        val width = bitMatrix.width
-//        val height = bitMatrix.height
-//        val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-//        for (x in 0 until width) {
-//            for (y in 0 until height) {
-//                bmp.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
-//            }
-//        }
-//
-//        val stream = ByteArrayOutputStream()
-//        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
-//        val byteArray = stream.toByteArray()
-//        val htmlDocument =
-//            "<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p><p></p></body></html>" + "$byteArray"
-//
-//
-////        val htmlDocument = "<BIG>ahaha<BR>bxabxajbx<BIG>BIG<BR><BIG><BOLD>" +
-////                "string <SMALL> text<BR><LEFT>Left aligned<BR><CENTER>" +
-////                "Center aligned<BR><UNDERLINE>underline text<BR><QR>1234<BR>" +
-////                "<CENTER>QR: 12345678<BR>Line<BR><LINE><BR>Double Line<BR><DLINE><BR><CUT>"
-//        webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null)
-//
-//        // Keep a reference to WebView object until you pass the PrintDocumentAdapter
-//        // to the PrintManager
-//        mWebView = webView
-//    }
+    private fun doWebViewPrint() {
+        // Create a WebView object specifically for printing
+        val webView = WebView(this)
+        webView.webViewClient = object : WebViewClient() {
 
-//    private fun createWebPrintJob(webView: WebView) {
-//
-//        // Get a PrintManager instance
-//        val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
-//        (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
-//
-//            val jobName = "${getString(R.string.app_name)} Document"
-//
-//            // Get a print adapter instance
-//            val printAdapter = webView.createPrintDocumentAdapter(jobName)
-//
-//            // Create a print job with name and adapter instance
-//            printManager.print(
-//                jobName,
-//                printAdapter,
-//                PrintAttributes.Builder().build()
-//            ).also { printJob ->
-//
-//                // Save the job object for later status checking
-////                printJobs += printJob
-//            }
-//        }
-//    }
+            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) =
+                false
+
+            override fun onPageFinished(view: WebView, url: String) {
+                Log.i(TAG, "page finished loading $url")
+                createWebPrintJob(view)
+                mWebView = null
+            }
+        }
+
+        // Generate an HTML document on the fly:
+        val text = "Tiket Pantai Malang Valid pada Tanggal "
+        val time = txtTime.text.toString()
+        val jam = " jam "
+        val hours = txtHour.text.toString()
+        val text2 = " dan anda pengunjungan ke "
+        val idPengunjung = intent.getStringExtra("id")
+        val combine = text + time + jam + " " + hours + text2 + idPengunjung
+        val qrCodeWriter = QRCodeWriter()
+        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+        val width = bitMatrix.width
+        val height = bitMatrix.height
+        val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                bmp.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
+            }
+        }
+
+        val stream = ByteArrayOutputStream()
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+        val htmlDocument =
+            "<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p><p></p></body></html>" + "$byteArray"
+
+
+//        val htmlDocument = "<BIG>ahaha<BR>bxabxajbx<BIG>BIG<BR><BIG><BOLD>" +
+//                "string <SMALL> text<BR><LEFT>Left aligned<BR><CENTER>" +
+//                "Center aligned<BR><UNDERLINE>underline text<BR><QR>1234<BR>" +
+//                "<CENTER>QR: 12345678<BR>Line<BR><LINE><BR>Double Line<BR><DLINE><BR><CUT>"
+        webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null)
+
+        // Keep a reference to WebView object until you pass the PrintDocumentAdapter
+        // to the PrintManager
+        mWebView = webView
+    }
+
+    private fun createWebPrintJob(webView: WebView) {
+
+        // Get a PrintManager instance
+        val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
+        (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
+
+            val jobName = "${getString(R.string.app_name)} Document"
+
+            // Get a print adapter instance
+            val printAdapter = webView.createPrintDocumentAdapter(jobName)
+
+            // Create a print job with name and adapter instance
+            printManager.print(
+                jobName,
+                printAdapter,
+                PrintAttributes.Builder().build()
+            ).also { printJob ->
+
+                // Save the job object for later status checking
+//                printJobs += printJob
+            }
+        }
+    }
 
 
     private fun doPhotoPrint(byteArray: ByteArray) {

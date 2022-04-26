@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linear_detail_pantai_malang"
-    android:layout_width="62mm"
-    android:layout_height="110mm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
     tools:context=".ui.home.fragment.wisata.pantai_malang.DetailPantaiMalangActivity">
