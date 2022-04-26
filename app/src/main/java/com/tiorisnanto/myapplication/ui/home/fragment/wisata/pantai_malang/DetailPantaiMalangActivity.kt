@@ -92,7 +92,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
                     binding.imgQrCode.setImageBitmap(bmp)
 
 //                    doPhotoPrint(byteArray)
-
+//
                     doWebViewPrint()
                 } catch (e: WriterException) {
                     e.printStackTrace()
