@@ -246,7 +246,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
         val textToPrint = "<BIG>$date<BR>$month<BIG>BIG<BR><BIG><BOLD>" +
                 "string <SMALL> text<BR><LEFT>Left aligned<BR><CENTER>" +
-//                yang ini pae $combine kalo ga  $bmp
+//                yang ini pake $combine kalo ga  $bmp
                 "Center aligned<BR><UNDERLINE>underline text<BR><QR>$combine<BR>" +
                 "<CENTER>QR: 12345678<BR>Line<BR><LINE><BR>Double Line<BR><DLINE><BR><CUT>"
         val intent = Intent("pe.diegoveloper.printing")
