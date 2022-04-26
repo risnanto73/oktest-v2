@@ -1,5 +1,6 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.wisata.pantai_malang
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -223,6 +224,8 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val height = bitMatrix.height
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
 
+
+
         for (x in 0 until width) {
             for (y in 0 until height) {
                 bmp.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
@@ -240,6 +243,18 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
                 byteArray.size
             )
         )
+
+        val textToPrint = "<BIG>$date<BR>$month<BIG>BIG<BR><BIG><BOLD>" +
+                "string <SMALL> text<BR><LEFT>Left aligned<BR><CENTER>" +
+//                yang ini pae $combine kalo ga  $bmp
+                "Center aligned<BR><UNDERLINE>underline text<BR><QR>$combine<BR>" +
+                "<CENTER>QR: 12345678<BR>Line<BR><LINE><BR>Double Line<BR><DLINE><BR><CUT>"
+        val intent = Intent("pe.diegoveloper.printing")
+        //intent.setAction(android.content.Intent.ACTION_SEND);
+        //intent.setAction(android.content.Intent.ACTION_SEND);
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, textToPrint)
+        startActivity(intent)
 
         val qrCode = byteArray
         dbHandler.insertRow(
