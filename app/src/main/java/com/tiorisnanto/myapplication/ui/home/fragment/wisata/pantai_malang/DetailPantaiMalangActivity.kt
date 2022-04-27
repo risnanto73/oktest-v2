@@ -155,8 +155,16 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val stream = ByteArrayOutputStream()
         bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byteArray = stream.toByteArray()
+
+        val view = findViewById<View>(R.id.linear_detail_pantai_malang) as LinearLayout
+        view.isDrawingCacheEnabled = true
+        view.buildDrawingCache()
+        val bm = view.drawingCache
+        val printHelper = PrintHelper(this)
+        printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
+        val bitmap = printHelper.printBitmap("Tiket Pantai Malang", bm)
         val htmlDocument =
-            "<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p><p></p></body></html>" + "$byteArray"
+            "<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p><p></p></body></html>" + "$bitmap"
 
 
 //        val htmlDocument = "<BIG>ahaha<BR>bxabxajbx<BIG>BIG<BR><BIG><BOLD>" +
@@ -172,23 +180,30 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
     private fun createWebPrintJob(webView: WebView) {
 
+
         // Get a PrintManager instance
-        val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
+//        val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
         (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
 
             val jobName = "${getString(R.string.app_name)} Document"
 
             // Get a print adapter instance
             val printAdapter = webView.createPrintDocumentAdapter(jobName)
+            val printAttributes = PrintAttributes.Builder()
+                .setMediaSize(PrintAttributes.MediaSize.ISO_C8)
+//                .setResolution(PrintAttributes.Resolution("", "", 600, 600))
+//                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                .build()
 
             // Create a print job with name and adapter instance
             printManager.print(
                 jobName,
                 printAdapter,
-                PrintAttributes.Builder().build()
+                printAttributes
             ).also { printJob ->
 
                 // Save the job object for later status checking
+
 //                printJobs += printJob
             }
         }
@@ -197,23 +212,37 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
     private fun doPhotoPrint(byteArray: ByteArray) {
         val view = findViewById<View>(R.id.linear_detail_pantai_malang) as LinearLayout
-        val textToPrint = "<BIG>$date<BR>$month<BIG>BIG<BR><BIG><BOLD>" +
-                "string <SMALL> text<BR><LEFT>Left aligned<BR><CENTER>" +
-//                yang ini pake $combine kalo ga  $bmp
-                "Center aligned<BR><UNDERLINE>underline text<BR><QR>1234<BR>" +
-                "<CENTER>QR: 12345678<BR>Line<BR><LINE><BR>Double Line<BR><DLINE><BR><CUT>"
-//        val intent = Intent("pe.diegoveloper.printing")
-//        //intent.setAction(android.content.Intent.ACTION_SEND);
-//        //intent.setAction(android.content.Intent.ACTION_SEND);
-//        intent.type = "text/plain"
-//        intent.putExtra(Intent.EXTRA_TEXT, textToPrint)
-//        startActivity(intent)
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
         val printHelper = PrintHelper(this)
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
         printHelper.printBitmap("Tiket Pantai Malang", bm)
+//        (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
+//
+//            val jobName = "${getString(R.string.app_name)} Document"
+//
+//            // Get a print adapter instance
+//            val printAdapter = webView.createPrintDocumentAdapter(jobName)
+//            val printAttributes = PrintAttributes.Builder()
+//                .setMediaSize(PrintAttributes.MediaSize.ISO_C8)
+////                .setResolution(PrintAttributes.Resolution("", "", 600, 600))
+////                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+//                .build()
+//
+//            // Create a print job with name and adapter instance
+//            printManager.print(
+//                jobName,
+//                printAdapter,
+//                printAttributes
+//            ).also { printJob ->
+//
+//                // Save the job object for later status checking
+//
+////                printJobs += printJob
+//            }
+//        }
+
     }
 
     private fun decreaseInteger() {
