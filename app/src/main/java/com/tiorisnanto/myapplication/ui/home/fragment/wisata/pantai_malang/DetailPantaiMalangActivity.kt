@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.webkit.WebResourceRequest
@@ -142,7 +143,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val idPengunjung = intent.getStringExtra("id")
         val combine = text + time + jam + " " + hours + text2 + idPengunjung
         val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 300, 300)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -153,18 +154,24 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         }
 
         val stream = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val byteArray = stream.toByteArray()
+//        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//        val byteArray = stream.toByteArray()
 
         val view = findViewById<View>(R.id.linear_detail_pantai_malang) as LinearLayout
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
+        bm.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
         val printHelper = PrintHelper(this)
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
-        val bitmap = printHelper.printBitmap("Tiket Pantai Malang", bm)
+
         val htmlDocument =
-            "<html><body><h1>Test Content</h1><p>Testing, testing, testing...</p><p></p></body></html>" + "$bitmap"
+            "<html><body><h1>Pantai coba sari malangt</h1><h5>Testing, testing, testing...</h5><p>$combine</p></body></html>" + "<img src='data:image/png;base64', " + Base64.encodeToString(
+                byteArray,
+                Base64.DEFAULT,
+            ) + "'/>"
+//
 
 
 //        val htmlDocument = "<BIG>ahaha<BR>bxabxajbx<BIG>BIG<BR><BIG><BOLD>" +
@@ -190,7 +197,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
             // Get a print adapter instance
             val printAdapter = webView.createPrintDocumentAdapter(jobName)
             val printAttributes = PrintAttributes.Builder()
-                .setMediaSize(PrintAttributes.MediaSize.ISO_C8)
+                .setMediaSize(PrintAttributes.MediaSize.ISO_C5)
 //                .setResolution(PrintAttributes.Resolution("", "", 600, 600))
 //                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                 .build()
@@ -218,30 +225,6 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val printHelper = PrintHelper(this)
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
         printHelper.printBitmap("Tiket Pantai Malang", bm)
-//        (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
-//
-//            val jobName = "${getString(R.string.app_name)} Document"
-//
-//            // Get a print adapter instance
-//            val printAdapter = webView.createPrintDocumentAdapter(jobName)
-//            val printAttributes = PrintAttributes.Builder()
-//                .setMediaSize(PrintAttributes.MediaSize.ISO_C8)
-////                .setResolution(PrintAttributes.Resolution("", "", 600, 600))
-////                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
-//                .build()
-//
-//            // Create a print job with name and adapter instance
-//            printManager.print(
-//                jobName,
-//                printAdapter,
-//                printAttributes
-//            ).also { printJob ->
-//
-//                // Save the job object for later status checking
-//
-////                printJobs += printJob
-//            }
-//        }
 
     }
 
