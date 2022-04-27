@@ -165,9 +165,10 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val byteArray = stream.toByteArray()
         val printHelper = PrintHelper(this)
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
+        val bitmap = printHelper.printBitmap("Tiket Pantai Malang", bm)
 
         val htmlDocument =
-            "<html><body><h1>Pantai coba sari malangt</h1><h5>Testing, testing, testing...</h5><p>$combine</p></body></html>" + "<img src='data:image/png;base64', " + Base64.encodeToString(
+            "<html><body><h1>Pantai coba sari malangt</h1><h5>Testing, testing, testing...</h5><p>$combine</p></body></html>" + "<img src='data:image/png;base64, " + Base64.encodeToString(
                 byteArray,
                 Base64.DEFAULT,
             ) + "'/>"
@@ -197,7 +198,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
             // Get a print adapter instance
             val printAdapter = webView.createPrintDocumentAdapter(jobName)
             val printAttributes = PrintAttributes.Builder()
-                .setMediaSize(PrintAttributes.MediaSize.ISO_C5)
+                .setMediaSize(PrintAttributes.MediaSize.ISO_C4)
 //                .setResolution(PrintAttributes.Resolution("", "", 600, 600))
 //                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                 .build()
@@ -223,6 +224,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         view.buildDrawingCache()
         val bm = view.drawingCache
         val printHelper = PrintHelper(this)
+
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
         printHelper.printBitmap("Tiket Pantai Malang", bm)
 
