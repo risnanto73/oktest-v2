@@ -14,7 +14,7 @@ import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.print.PrintHelper
@@ -157,7 +157,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 //        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
 //        val byteArray = stream.toByteArray()
 
-        val view = findViewById<View>(R.id.linear_detail_pantai_malang) as LinearLayout
+        val view = findViewById<View>(R.id.linear_detail_pantai_malang) as RelativeLayout
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
@@ -168,7 +168,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val bitmap = printHelper.printBitmap("Tiket Pantai Malang", bm)
 
         val htmlDocument =
-            "<html><body><h1>Pantai coba sari malangt</h1><h5>Testing, testing, testing...</h5><p>$combine</p></body></html>" + "<img src='data:image/png;base64, " + Base64.encodeToString(
+             "<img src='data:image/png;base64, " + Base64.encodeToString(
                 byteArray,
                 Base64.DEFAULT,
             ) + "'/>"
@@ -198,7 +198,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
             // Get a print adapter instance
             val printAdapter = webView.createPrintDocumentAdapter(jobName)
             val printAttributes = PrintAttributes.Builder()
-                .setMediaSize(PrintAttributes.MediaSize.ISO_C4)
+                .setMediaSize(PrintAttributes.MediaSize.ISO_A3)
 //                .setResolution(PrintAttributes.Resolution("", "", 600, 600))
 //                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                 .build()
@@ -219,7 +219,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
 
     private fun doPhotoPrint(byteArray: ByteArray) {
-        val view = findViewById<View>(R.id.linear_detail_pantai_malang) as LinearLayout
+        val view = findViewById<View>(R.id.rel_print) as RelativeLayout
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
