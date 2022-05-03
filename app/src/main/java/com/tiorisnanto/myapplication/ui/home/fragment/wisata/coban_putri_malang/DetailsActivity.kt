@@ -191,7 +191,7 @@ class DetailsActivity : AppCompatActivity() {
         val bm = view.drawingCache
         val printHelper = PrintHelper(this)
         printHelper.orientation = 1
-        printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
+        printHelper.scaleMode = PrintHelper.SCALE_MODE_FILL
         printHelper.printBitmap("Tiket", bm)
     }
 //
