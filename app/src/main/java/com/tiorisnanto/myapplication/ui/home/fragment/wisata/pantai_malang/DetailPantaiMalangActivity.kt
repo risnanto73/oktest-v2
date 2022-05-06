@@ -72,7 +72,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
                 val qrCodeWriter = QRCodeWriter()
                 try {
                     val bitMatrix =
-                        qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+                        qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 700, 700)
                     val width = bitMatrix.width
                     val height = bitMatrix.height
                     val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -143,7 +143,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val idPengunjung = intent.getStringExtra("id")
         val combine = text + time + jam + " " + hours + text2 + idPengunjung
         val qrCodeWriter = QRCodeWriter()
-        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 300, 300)
+        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
         val width = bitMatrix.width
         val height = bitMatrix.height
         val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -154,14 +154,13 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         }
 
         val stream = ByteArrayOutputStream()
-//        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
-//        val byteArray = stream.toByteArray()
 
         val view = findViewById<View>(R.id.linear_detail_pantai_malang) as RelativeLayout
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
         bm.compress(Bitmap.CompressFormat.PNG, 100, stream)
+
         val byteArray = stream.toByteArray()
         val printHelper = PrintHelper(this)
         printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
@@ -187,8 +186,6 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
     }
 
     private fun createWebPrintJob(webView: WebView) {
-
-
         // Get a PrintManager instance
 //        val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager
         (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
@@ -208,12 +205,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
                 jobName,
                 printAdapter,
                 printAttributes
-            ).also { printJob ->
-
-                // Save the job object for later status checking
-
-//                printJobs += printJob
-            }
+            )
         }
     }
 

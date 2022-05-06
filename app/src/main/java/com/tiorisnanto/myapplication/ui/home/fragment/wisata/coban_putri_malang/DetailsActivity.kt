@@ -2,16 +2,25 @@ package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_putri_malang
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintJobInfo
+import android.print.PrintManager
+import android.util.Base64
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
@@ -29,6 +38,7 @@ import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.fragment_view_pager.*
 import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
+import java.nio.charset.Charset
 import java.text.NumberFormat
 import java.util.*
 
@@ -122,7 +132,7 @@ class DetailsActivity : AppCompatActivity() {
                 val qrCodeWriter = QRCodeWriter()
                 try {
                     val bitMatrix =
-                        qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+                        qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 700, 700)
                     val width = bitMatrix.width
                     val height = bitMatrix.height
                     val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
@@ -143,7 +153,8 @@ class DetailsActivity : AppCompatActivity() {
                     val imgOk: ImageView = findViewById(R.id.imgQrCode)
                     imgOk.setImageBitmap(bmp)
 
-                    doPhotoPrint(byteArray)
+                    doWebPrintJob(byteArray)
+                    //doPhotoPrint(byteArray)
                 } catch (e: WriterException) {
                     e.printStackTrace()
                 }
@@ -166,32 +177,110 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun createBitmapFromView(context: Context, view: View): Bitmap? {
-        val displayMetrics = DisplayMetrics()
-        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-        view.layoutParams =
-            ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
-        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+    private var mWebView: WebView? = null
+
+    private fun doWebPrintJob(byteArray: ByteArray) {
+        val webView = WebView(this)
+        webView.webViewClient = object : WebViewClient() {
+
+            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) =
+                false
+
+            override fun onPageFinished(view: WebView, url: String) {
+                Log.i(ContentValues.TAG, "page finished loading $url")
+                createWebPrintJob(view)
+                mWebView = null
+            }
+        }
+
+        // Generate an HTML document on the fly:
+        val text = "Tiket Pantai Malang Valid pada Tanggal "
+        val time = txtTime.text.toString()
+        val jam = " jam "
+        val hours = txtHour.text.toString()
+        val text2 = " dan anda pengunjungan ke "
+        val idPengunjung = intent.getStringExtra("id")
+        val combine = text + time + jam + " " + hours + text2 + idPengunjung
+        val qrCodeWriter = QRCodeWriter()
+        val bitMatrix = qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 512, 512)
+        val width = bitMatrix.width
+        val height = bitMatrix.height
+        val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                bmp.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
+            }
+        }
+
+        val stream = ByteArrayOutputStream()
+
+        val view = findViewById<View>(R.id.activity_details) as RelativeLayout
+        view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
-        val bitmap =
-            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        view.draw(canvas)
-        return bitmap
+        val bm = view.drawingCache
+        bm.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+        val printHelper = PrintHelper(this)
+        printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
+        val bitmap = printHelper.printBitmap("Tiket Coban Putri Malang", bm)
+
+        val htmlDocument =
+            Base64.encodeToString(
+                byteArray,
+                Base64.DEFAULT,
+            )
+
+        webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null)
+
+        mWebView = webView
+
     }
 
+    private fun createWebPrintJob(webView: WebView) {
+        (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
+
+            val jobName = "${getString(R.string.app_name)} Document"
+
+            // Get a print adapter instance
+            val printAdapter = webView.createPrintDocumentAdapter(jobName)
+            val printAttributes = PrintAttributes.Builder()
+                .setMediaSize(PrintAttributes.MediaSize.ISO_A3)
+                .build()
+
+            printManager.print(
+                jobName,
+                printAdapter,
+                printAttributes
+            )
+        }
+    }
+
+//    private fun createBitmapFromView(context: Context, view: View): Bitmap? {
+//        val displayMetrics = DisplayMetrics()
+//        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+//        view.layoutParams =
+//            ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.WRAP_CONTENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT
+//            )
+//        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+//        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+//        view.buildDrawingCache()
+//        val bitmap =
+//            Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+//        val canvas = Canvas(bitmap)
+//        view.draw(canvas)
+//        return bitmap
+//    }
+
     private fun doPhotoPrint(byteArray: ByteArray) {
-        val view = findViewById<View>(R.id.activity_details) as LinearLayout
+        val view = findViewById<View>(R.id.activity_details) as RelativeLayout
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bm = view.drawingCache
         val printHelper = PrintHelper(this)
         printHelper.orientation = 1
-        printHelper.scaleMode = PrintHelper.SCALE_MODE_FILL
+        printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
         printHelper.printBitmap("Tiket", bm)
     }
 //
@@ -340,7 +429,7 @@ class DetailsActivity : AppCompatActivity() {
         )
         Toast.makeText(this, "Ticket Coban Putri Malang telah ditambahkan", Toast.LENGTH_SHORT)
             .show()
-            finish()
+        finish()
     }
 
 

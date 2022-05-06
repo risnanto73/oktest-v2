@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,16 +8,17 @@
 
 
     <RelativeLayout
+        android:id="@+id/activity_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <ImageView
             android:id="@+id/imgQrCode"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:scaleType="fitXY"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
             android:src="@drawable/a_bg" />
 
         <TextView
@@ -45,8 +45,8 @@
 
                 <LinearLayout
                     android:id="@+id/layoutInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -266,7 +266,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/txtRincian"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp">
 
                         <TableLayout
                             android:layout_width="match_parent"

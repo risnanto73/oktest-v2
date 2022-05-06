@@ -1,9 +1,13 @@
 package com.tiorisnanto.myapplication.ui.home.fragment.wisata.coban_rais_malang
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintDocumentAdapter
+import android.print.PrintManager
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -109,13 +113,15 @@ class DetailRaisMalangActivity : AppCompatActivity() {
     }
 
     private fun doPhotoPrint(byteArray: ByteArray) {
-        val view = findViewById<View>(R.id.linear_detail_rais_malang) as LinearLayout
-        view.isDrawingCacheEnabled = true
-        view.buildDrawingCache()
-        val bm = view.drawingCache
-        val printHelper = PrintHelper(this)
-        printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
-        printHelper.printBitmap("Tiket Rais Malang", bm)
+
+//        val view = findViewById<View>(R.id.linear_detail_rais_malang) as LinearLayout
+//        view.isDrawingCacheEnabled = true
+//        view.buildDrawingCache()
+//        val bm = view.drawingCache
+//        val printHelper = PrintHelper(this)
+//        printHelper.scaleMode = PrintHelper.SCALE_MODE_FIT
+//        printHelper.printBitmap("Tiket Rais Malang", bm)
+
     }
 
     private fun decreaseInteger() {

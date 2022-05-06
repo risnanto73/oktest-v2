@@ -11,22 +11,12 @@
     <RelativeLayout
         android:id="@+id/linear_detail_pantai_malang"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <!--        <Button-->
-        <!--            android:id="@+id/btnDelete"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginHorizontal="5dp"-->
-        <!--            android:maxLines="1"-->
-        <!--            android:onClick="delete"-->
-        <!--            android:text="Delete" />-->
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imgQrCode"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
             android:src="@drawable/a_bg" />
@@ -54,8 +44,8 @@
 
                 <LinearLayout
                     android:id="@+id/layoutInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:orientation="vertical">
 
                     <!--                    <com.google.android.material.textfield.TextInputLayout-->
@@ -294,7 +284,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/txtRincian"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp">
 
                         <TableLayout
                             android:layout_width="match_parent"
