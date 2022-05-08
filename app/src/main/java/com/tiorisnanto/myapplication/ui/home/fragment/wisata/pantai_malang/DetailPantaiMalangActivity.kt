@@ -129,7 +129,10 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
             override fun onPageFinished(view: WebView, url: String) {
                 Log.i(TAG, "page finished loading $url")
-                createWebPrintJob(view)
+                val count = binding.txtCountTotal.text.toString()
+                for (i in 1..count.toInt()) {
+                    createWebPrintJob(view)
+                }
                 mWebView = null
             }
         }
@@ -167,7 +170,7 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         val bitmap = printHelper.printBitmap("Tiket Pantai Malang", bm)
 
         val htmlDocument =
-             "<img src='data:image/png;base64, " + Base64.encodeToString(
+            "<img src='data:image/png;base64, " + Base64.encodeToString(
                 byteArray,
                 Base64.DEFAULT,
             ) + "'/>"
@@ -191,11 +194,14 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
         (this?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
 
             val jobName = "${getString(R.string.app_name)} Document"
-
+            val count = binding.txtCountTotal.text.toString()
             // Get a print adapter instance
             val printAdapter = webView.createPrintDocumentAdapter(jobName)
             val printAttributes = PrintAttributes.Builder()
                 .setMediaSize(PrintAttributes.MediaSize.ISO_A3)
+//
+
+
 //                .setResolution(PrintAttributes.Resolution("", "", 600, 600))
 //                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                 .build()
