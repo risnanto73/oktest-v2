@@ -129,9 +129,17 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
 
             override fun onPageFinished(view: WebView, url: String) {
                 Log.i(TAG, "page finished loading $url")
+                val adult = binding.valueDewasa.text.toString()
+                val child = binding.valueAnak.text.toString()
                 val count = binding.txtCountTotal.text.toString()
-                for (i in 1..count.toInt()) {
-                    createWebPrintJob(view)
+                if (adult.isNotEmpty()) {
+                    for (i in 1..adult.toInt()) {
+                        createWebPrintJob(view)
+                    }
+                } else if (child.isNotEmpty()) {
+                    for (i in 1..child.toInt()) {
+                        createWebPrintJob(view)
+                    }
                 }
                 mWebView = null
             }
