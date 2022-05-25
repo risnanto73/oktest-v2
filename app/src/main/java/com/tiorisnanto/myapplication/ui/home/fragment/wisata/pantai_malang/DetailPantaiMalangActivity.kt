@@ -67,34 +67,39 @@ class DetailPantaiMalangActivity : AppCompatActivity() {
                 val text2 = " dan anda pengunjungan ke "
                 val idPengunjung = intent.getStringExtra("id")
 
-
+                val jumlah = binding.txtCountTotal.setText(intent.getStringExtra("count"))
                 val combine = text + time + jam + " " + hour + text2 + idPengunjung
                 val qrCodeWriter = QRCodeWriter()
+
+//                make a loop for multiply the Qrcode by val jumlah
+
                 try {
-                    val bitMatrix =
-                        qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 700, 700)
-                    val width = bitMatrix.width
-                    val height = bitMatrix.height
-                    val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+                    for (i in 1..jumlah.toString().toInt()) {
+                        val bitMatrix =
+                            qrCodeWriter.encode(combine, BarcodeFormat.QR_CODE, 700, 700)
+                        val width = bitMatrix.width
+                        val height = bitMatrix.height
+                        val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
 
-                    for (x in 0 until width) {
-                        for (y in 0 until height) {
-                            bmp.setPixel(
-                                x,
-                                y,
-                                if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE
-                            )
+                        for (x in 0 until width) {
+                            for (y in 0 until height) {
+                                bmp.setPixel(
+                                    x,
+                                    y,
+                                    if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE
+                                )
+                            }
                         }
-                    }
 
-                    val stream = ByteArrayOutputStream()
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                    val byteArray = stream.toByteArray()
-                    binding.imgQrCode.setImageBitmap(bmp)
+                        val stream = ByteArrayOutputStream()
+                        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                        val byteArray = stream.toByteArray()
+                        binding.imgQrCode.setImageBitmap(bmp)
 
 //                    doPhotoPrint(byteArray)
 //
-                    doWebViewPrint()
+                        doWebViewPrint()
+                    }
                 } catch (e: WriterException) {
                     e.printStackTrace()
                 }

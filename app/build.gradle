@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.tiorisnanto.myapplication"
@@ -34,6 +34,8 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.tiorisnanto.myapplication'
+    buildToolsVersion '32.0.0'
 }
 
 dependencies {
